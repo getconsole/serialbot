@@ -35,7 +35,7 @@ public class SettingsActivityTest extends
 		ActivityInstrumentationTestCase2<SettingsActivity> {
 
 	public SettingsActivityTest() {
-		super("com.amixcapital.serialbot", SettingsActivity.class);
+		super("nz.co.cloudstore.serialbot", SettingsActivity.class);
 	}
 
 	public void testOpenMenu() {

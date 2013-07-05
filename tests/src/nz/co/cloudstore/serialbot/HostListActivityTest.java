@@ -35,7 +35,7 @@ public class HostListActivityTest extends ActivityInstrumentationTestCase2<HostL
 	private Activity mActivity;
 
 	public HostListActivityTest() {
-		super("com.amixcapital.serialbot", HostListActivity.class);
+		super("nz.co.cloudstore.serialbot", HostListActivity.class);
 	}
 
 	@Override
