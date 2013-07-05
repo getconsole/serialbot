@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.service.TerminalBridge;
 import org.connectbot.service.TerminalManager;

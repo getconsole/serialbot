@@ -20,8 +20,8 @@ package org.connectbot.service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.ConsoleActivity;
-import org.connectbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.util.HostDatabase;
 import org.connectbot.util.PreferenceConstants;

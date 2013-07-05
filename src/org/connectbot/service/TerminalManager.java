@@ -31,7 +31,7 @@ import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.connectbot.R;
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.bean.PubkeyBean;
 import org.connectbot.transport.TransportFactory;

@@ -19,6 +19,8 @@ package org.connectbot;
 
 import java.io.IOException;
 
+import com.amixcapital.serialbot.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;

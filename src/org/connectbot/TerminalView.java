@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.SelectionArea;
 import org.connectbot.service.FontSizeChangedListener;
 import org.connectbot.service.TerminalBridge;

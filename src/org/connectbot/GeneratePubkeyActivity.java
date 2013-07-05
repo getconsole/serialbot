@@ -23,6 +23,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.PubkeyBean;
 import org.connectbot.util.EntropyDialog;
 import org.connectbot.util.EntropyView;

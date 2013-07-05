@@ -41,7 +41,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.connectbot.R;
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.bean.PortForwardBean;
 import org.connectbot.bean.PubkeyBean;

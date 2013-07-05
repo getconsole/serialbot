@@ -20,6 +20,7 @@ package org.connectbot;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.SelectionArea;
 import org.connectbot.service.PromptHelper;
 import org.connectbot.service.TerminalBridge;

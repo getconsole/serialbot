@@ -20,6 +20,7 @@ package org.connectbot;
 import java.util.Arrays;
 import java.util.List;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.util.Colors;
 import org.connectbot.util.HostDatabase;
 import org.connectbot.util.UberColorPickerDialog;

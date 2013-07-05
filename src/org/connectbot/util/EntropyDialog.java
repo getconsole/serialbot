@@ -17,7 +17,7 @@
 
 package org.connectbot.util;
 
-import org.connectbot.R;
+import com.amixcapital.serialbot.R;
 
 import android.app.Dialog;
 import android.content.Context;

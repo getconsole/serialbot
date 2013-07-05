@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.connectbot.R;
+import com.amixcapital.serialbot.R;
 import org.connectbot.TerminalView;
 import org.connectbot.bean.HostBean;
 import org.connectbot.bean.PortForwardBean;

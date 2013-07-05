@@ -23,7 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import org.connectbot.R;
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.service.TerminalBridge;
 import org.connectbot.service.TerminalManager;

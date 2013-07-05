@@ -19,7 +19,7 @@ package org.connectbot.util;
 
 import java.util.Vector;
 
-import org.connectbot.R;
+import com.amixcapital.serialbot.R;
 
 import android.content.Context;
 import android.graphics.Canvas;

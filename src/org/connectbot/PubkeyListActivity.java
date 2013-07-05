@@ -31,6 +31,7 @@ import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.PubkeyBean;
 import org.connectbot.service.TerminalManager;
 import org.connectbot.util.PubkeyDatabase;

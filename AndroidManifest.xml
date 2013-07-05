@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.connectbot"
+	package="com.amixcapital.serialbot"
 	android:versionName="1.7.1"
 	android:versionCode="365"
 	android:installLocation="auto">
@@ -38,10 +38,10 @@
 		android:label="@string/app_name"
 		android:description="@string/app_desc"
 		android:allowBackup="true"
-		android:backupAgent=".service.BackupAgent"
+		android:backupAgent="org.connectbot.service.BackupAgent"
 		android:killAfterRestore="true">
 
-		<activity android:name=".HostListActivity" >
+		<activity android:name="org.connectbot.HostListActivity" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -59,21 +59,21 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".PubkeyListActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".GeneratePubkeyActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".HostEditorActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".PortForwardListActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".SettingsActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".WizardActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".HelpActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".HelpTopicActivity" android:configChanges="keyboardHidden|orientation" />
-		<activity android:name=".ColorsActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.PubkeyListActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.GeneratePubkeyActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.HostEditorActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.PortForwardListActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.SettingsActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.WizardActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.HelpActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.HelpTopicActivity" android:configChanges="keyboardHidden|orientation" />
+		<activity android:name="org.connectbot.ColorsActivity" android:configChanges="keyboardHidden|orientation" />
 
 		<service android:name="org.connectbot.service.TerminalManager"
 			android:configChanges="keyboardHidden|orientation"
 			android:description="@string/service_desc" />
 
-		<activity android:name=".ConsoleActivity" android:configChanges="keyboardHidden|orientation"
+		<activity android:name="org.connectbot.ConsoleActivity" android:configChanges="keyboardHidden|orientation"
 			android:theme="@style/NoTitle" android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
 			android:launchMode="singleTop">
 			<intent-filter>

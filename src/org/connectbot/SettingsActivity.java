@@ -17,6 +17,7 @@
 
 package org.connectbot;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.util.PreferenceConstants;
 
 import android.content.SharedPreferences;

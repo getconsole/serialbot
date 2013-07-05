@@ -19,6 +19,7 @@ package org.connectbot;
 
 import java.util.List;
 
+import com.amixcapital.serialbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.bean.PortForwardBean;
 import org.connectbot.service.TerminalBridge;
