@@ -121,7 +121,7 @@ public class ConsoleActivity extends Activity {
 
 	private InputMethodManager inputManager;
 
-	private MenuItem disconnect, copy, paste, portForward, resize, urlscan;
+	private MenuItem disconnect, copy, paste, sendBreak, portForward, resize, urlscan;
 
 	protected TerminalBridge copySource = null;
 	private int lastTouchRow, lastTouchCol;
@@ -642,12 +642,14 @@ public class ConsoleActivity extends Activity {
 		boolean sessionOpen = false;
 		boolean disconnected = false;
 		boolean canForwardPorts = false;
+        boolean canSendBreak = false;
 
 		if (activeTerminal) {
 			TerminalBridge bridge = ((TerminalView) view).bridge;
 			sessionOpen = bridge.isSessionOpen();
 			disconnected = bridge.isDisconnected();
 			canForwardPorts = bridge.canFowardPorts();
+            canSendBreak = bridge.canSendBreak();
 		}
 
 		menu.setQwertyMode(true);
@@ -713,6 +715,17 @@ public class ConsoleActivity extends Activity {
 				return true;
 			}
 		});
+
+        sendBreak = menu.add(R.string.console_menu_break);
+        sendBreak.setEnabled(sessionOpen && canSendBreak);
+        sendBreak.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                TerminalView terminalView = (TerminalView) findCurrentView(R.id.console_flip);
+                TerminalBridge bridge = terminalView.bridge;
+                bridge.sendBreak();
+                return true;
+            }
+        });
 
 		portForward = menu.add(R.string.console_menu_portforwards);
 		if (hardKeyboard)
@@ -807,12 +820,14 @@ public class ConsoleActivity extends Activity {
 		boolean sessionOpen = false;
 		boolean disconnected = false;
 		boolean canForwardPorts = false;
+        boolean canSendBreak = false;
 
 		if (activeTerminal) {
 			TerminalBridge bridge = ((TerminalView) view).bridge;
 			sessionOpen = bridge.isSessionOpen();
 			disconnected = bridge.isDisconnected();
 			canForwardPorts = bridge.canFowardPorts();
+            canSendBreak = bridge.canSendBreak();
 		}
 
 		disconnect.setEnabled(activeTerminal);
@@ -822,6 +837,7 @@ public class ConsoleActivity extends Activity {
 			disconnect.setTitle(R.string.console_menu_close);
 		copy.setEnabled(activeTerminal);
 		paste.setEnabled(clipboard.hasText() && sessionOpen);
+        sendBreak.setEnabled(sessionOpen && canSendBreak);
 		portForward.setEnabled(sessionOpen && canForwardPorts);
 		urlscan.setEnabled(activeTerminal);
 		resize.setEnabled(sessionOpen);

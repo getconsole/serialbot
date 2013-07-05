@@ -156,7 +156,19 @@ public abstract class AbsTransport {
 		this.manager = manager;
 	}
 
-	/**
+    /**
+     * Whether or not this transport type can send a BREAK.
+     * @return true on ability to send BREAK
+     */
+    public boolean canSendBreak() {
+        return false;
+    }
+
+    public void sendBreak() {
+        // Subclasses to override if supported
+    }
+
+    /**
 	 * Whether or not this transport type can forward ports.
 	 * @return true on ability to forward ports
 	 */
@@ -164,7 +176,7 @@ public abstract class AbsTransport {
 		return false;
 	}
 
-	/**
+    /**
 	 * Adds the {@link PortForwardBean} to the list.
 	 * @param portForward the port forward bean to add
 	 * @return true on successful addition
@@ -209,6 +221,10 @@ public abstract class AbsTransport {
 	public List<PortForwardBean> getPortForwards() {
 		return null;
 	}
+
+    public void setSerialParameters(int baudrate, int databits, String parity, int stopbits, String flowcontrol) {
+        // Do nothing - subclasses to override
+    }
 
 	public abstract boolean isConnected();
 	public abstract boolean isSessionOpen();

@@ -40,6 +40,7 @@ import android.content.Intent.ShortcutIconResource;
 import android.content.SharedPreferences.Editor;
 import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -86,6 +87,8 @@ public class HostListActivity extends ListActivity {
 	private SharedPreferences prefs = null;
 
 	protected boolean makingShortcut = false;
+
+    private WifiManager.MulticastLock lock;
 
 	protected Handler updateHandler = new Handler() {
 		@Override
@@ -152,6 +155,15 @@ public class HostListActivity extends ListActivity {
 		}
 	}
 
+    @Override
+    public void onDestroy() {
+        if (lock != null) {
+            lock.release();
+            lock = null;
+        }
+        super.onDestroy();
+    }
+
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -180,7 +192,13 @@ public class HostListActivity extends ListActivity {
 
 		//this.list.setSelector(R.drawable.highlight_disabled_pressed);
 
-		list.setOnItemClickListener(new OnItemClickListener() {
+        // Turn on Multicast processing for mDNS queries (requires API version 4)
+        WifiManager wifi = (WifiManager)getSystemService(android.content.Context.WIFI_SERVICE);
+        lock = wifi.createMulticastLock("SerialBot");
+        lock.setReferenceCounted(true);
+        lock.acquire();
+
+        list.setOnItemClickListener(new OnItemClickListener() {
 
 			public synchronized void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

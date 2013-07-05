@@ -21,13 +21,14 @@
 	android:versionCode="365"
 	android:installLocation="auto">
 
-	<uses-sdk android:targetSdkVersion="15" android:minSdkVersion="3" />
+	<uses-sdk android:targetSdkVersion="15" android:minSdkVersion="4" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
 
@@ -55,6 +56,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<data android:scheme="ssh" />
 				<data android:scheme="telnet" />
+				<data android:scheme="serial" />
 				<data android:scheme="local" />
 			</intent-filter>
 		</activity>
@@ -82,6 +84,7 @@
 				<category android:name="android.intent.category.BROWSABLE" />
 				<data android:scheme="ssh" />
 				<data android:scheme="telnet" />
+				<data android:scheme="serial" />
 				<data android:scheme="local" />
 				<!-- format:  ssh://user@host:port/#nickname  -->
 				<!-- format:  telnet://host:port/#nickname  -->

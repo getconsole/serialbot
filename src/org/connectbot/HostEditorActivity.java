@@ -375,9 +375,18 @@ public class HostEditorActivity extends PreferenceActivity implements OnSharedPr
 		this.updateSummaries();
 
 		// Our CursorPreferenceHack always send null keys, so try to set charset anyway
-		if (hostBridge != null)
-			hostBridge.setCharset(sharedPreferences
-					.getString(HostDatabase.FIELD_HOST_ENCODING, HostDatabase.ENCODING_DEFAULT));
+		if (hostBridge != null) {
+			hostBridge.setCharset(sharedPreferences.getString(HostDatabase.FIELD_HOST_ENCODING, HostDatabase.ENCODING_DEFAULT));
+
+            // Update serial parameters (no-op on transports that don't support it)
+            hostBridge.setSerialParameters(
+                    sharedPreferences.getInt(HostDatabase.FIELD_HOST_BAUDRATE, HostDatabase.DEFAULT_BAUDRATE),
+                    sharedPreferences.getInt(HostDatabase.FIELD_HOST_DATABITS, HostDatabase.DEFAULT_DATABITS),
+                    sharedPreferences.getString(HostDatabase.FIELD_HOST_PARITY, HostDatabase.DEFAULT_PARITY),
+                    sharedPreferences.getInt(HostDatabase.FIELD_HOST_STOPBITS, HostDatabase.DEFAULT_STOPBITS),
+                    sharedPreferences.getString(HostDatabase.FIELD_HOST_PARITY, HostDatabase.DEFAULT_PARITY)
+            );
+        }
 	}
 
 	public static class CharsetHolder {

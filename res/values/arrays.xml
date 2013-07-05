@@ -139,4 +139,70 @@
 		<item>backspace</item>
 	</string-array>
 
+    <string-array name="list_baudrates" translatable="false">
+        <item>@string/baudrate_1200</item>
+        <item>@string/baudrate_2400</item>
+        <item>@string/baudrate_4800</item>
+        <item>@string/baudrate_9600</item>
+        <item>@string/baudrate_19200</item>
+        <item>@string/baudrate_38400</item>
+        <item>@string/baudrate_57600</item>
+        <item>@string/baudrate_115200</item>
+    </string-array>
+
+    <string-array name="list_baudrates_values" translateable="false">
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+    </string-array>
+
+    <string-array name="list_databits" translatable="false">
+        <item>@string/databits_7</item>
+        <item>@string/databits_8</item>
+    </string-array>
+
+    <string-array name="list_databits_values" translateable="false">
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="list_parity" translatable="false">
+        <item>@string/parity_none</item>
+        <item>@string/parity_odd</item>
+        <item>@string/parity_even</item>
+    </string-array>
+
+    <string-array name="list_parity_values" translateable="false">
+        <item>N</item>
+        <item>O</item>
+        <item>E</item>
+    </string-array>
+
+    <string-array name="list_stopbits" translatable="false">
+        <item>@string/stopbits_1</item>
+        <item>@string/stopbits_2</item>
+    </string-array>
+
+    <string-array name="list_stopbits_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="list_flowcontrol" translatable="false">
+        <item>@string/flowcontrol_none</item>
+        <item>@string/flowcontrol_software</item>
+        <item>@string/flowcontrol_hardware</item>
+    </string-array>
+
+    <string-array name="list_flowcontrol_values" translatable="false">
+        <item/>
+        <item>SW</item>
+        <item>HW</item>
+    </string-array>
+
 </resources>

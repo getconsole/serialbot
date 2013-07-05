@@ -47,7 +47,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	public final static String TAG = "ConnectBot.HostDatabase";
 
 	public final static String DB_NAME = "hosts";
-	public final static int DB_VERSION = 22;
+	public final static int DB_VERSION = 23;
 
 	public final static String TABLE_HOSTS = "hosts";
 	public final static String FIELD_HOST_NICKNAME = "nickname";
@@ -70,7 +70,28 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	public final static String FIELD_HOST_ENCODING = "encoding";
 	public final static String FIELD_HOST_STAYCONNECTED = "stayconnected";
 
-	public final static String TABLE_PORTFORWARDS = "portforwards";
+    public final static String FIELD_HOST_BAUDRATE = "baudrate";
+    public final static String FIELD_HOST_DATABITS = "databits";
+    public final static String FIELD_HOST_PARITY = "parity";
+    public final static String FIELD_HOST_STOPBITS = "stopbits";
+    public final static String FIELD_HOST_FLOW_CONTROL = "flowcontrol";
+
+    public final static String PARITY_NONE = "N";
+    public final static String PARITY_ODD = "O";
+    public final static String PARITY_EVEN = "E";
+
+    public final static String FLOWCONTROL_NONE = "";
+    public final static String FLOWCONTROL_SOFTWARE = "SW";
+    public final static String FLOWCONTROL_HARDWARE = "HW";
+
+    public final static int DEFAULT_BAUDRATE = 9600;
+    public final static int DEFAULT_DATABITS = 8;
+    public final static String DEFAULT_PARITY = HostDatabase.PARITY_NONE;
+    public final static int DEFAULT_STOPBITS = 1;
+    public final static String DEFAULT_FLOW_CONTROL = HostDatabase.FLOWCONTROL_NONE;
+
+
+    public final static String TABLE_PORTFORWARDS = "portforwards";
 	public final static String FIELD_PORTFORWARD_HOSTID = "hostid";
 	public final static String FIELD_PORTFORWARD_NICKNAME = "nickname";
 	public final static String FIELD_PORTFORWARD_TYPE = "type";
@@ -169,7 +190,12 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 				+ FIELD_HOST_WANTSESSION + " TEXT DEFAULT '" + Boolean.toString(true) + "', "
 				+ FIELD_HOST_COMPRESSION + " TEXT DEFAULT '" + Boolean.toString(false) + "', "
 				+ FIELD_HOST_ENCODING + " TEXT DEFAULT '" + ENCODING_DEFAULT + "', "
-				+ FIELD_HOST_STAYCONNECTED + " TEXT)");
+				+ FIELD_HOST_STAYCONNECTED + " TEXT, "
+				+ FIELD_HOST_BAUDRATE + " INTEGER DEFAULT "+ HostDatabase.DEFAULT_BAUDRATE + ", "
+				+ FIELD_HOST_DATABITS + " INTEGER DEFAULT "+ HostDatabase.DEFAULT_DATABITS +", "
+				+ FIELD_HOST_PARITY + " TEXT DEFAULT '" + HostDatabase.DEFAULT_PARITY + "', "
+				+ FIELD_HOST_STOPBITS + " INTEGER DEFAULT " + HostDatabase.DEFAULT_STOPBITS + ", "
+				+ FIELD_HOST_FLOW_CONTROL + " TEXT DEFAULT '" + HostDatabase.DEFAULT_FLOW_CONTROL + "')");
 
 		db.execSQL("CREATE TABLE " + TABLE_PORTFORWARDS
 				+ " (_id INTEGER PRIMARY KEY, "
@@ -259,12 +285,19 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 			db.execSQL("DROP TABLE " + TABLE_COLOR_DEFAULTS);
 			db.execSQL(CREATE_TABLE_COLOR_DEFAULTS);
 			db.execSQL(CREATE_TABLE_COLOR_DEFAULTS_INDEX);
+        case 22:
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS + " ADD COLUMN " + FIELD_HOST_BAUDRATE + " INTEGER DEFAULT "+ HostDatabase.DEFAULT_BAUDRATE);
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS + " ADD COLUMN " + FIELD_HOST_BAUDRATE + " INTEGER DEFAULT "+ HostDatabase.DEFAULT_BAUDRATE);
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS + " ADD COLUMN " + FIELD_HOST_DATABITS + " INTEGER DEFAULT "+ HostDatabase.DEFAULT_DATABITS);
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_PARITY + " TEXT DEFAULT '" + HostDatabase.DEFAULT_PARITY + "'");
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_STOPBITS + " INTEGER DEFAULT " + HostDatabase.DEFAULT_STOPBITS);
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_FLOW_CONTROL + " TEXT DEFAULT '" + HostDatabase.DEFAULT_FLOW_CONTROL + "'");
 		}
 	}
 
 	/**
 	 * Touch a specific host to update its "last connected" field.
-	 * @param nickname Nickname field of host to update
+	 * @param host Nickname field of host to update
 	 */
 	public void touchHost(HostBean host) {
 		long now = System.currentTimeMillis() / 1000;
@@ -353,7 +386,6 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	}
 
 	/**
-	 * @param hosts
 	 * @param c
 	 */
 	private List<HostBean> createHostBeans(Cursor c) {
@@ -376,7 +408,12 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 			COL_FONTSIZE = c.getColumnIndexOrThrow(FIELD_HOST_FONTSIZE),
 			COL_COMPRESSION = c.getColumnIndexOrThrow(FIELD_HOST_COMPRESSION),
 			COL_ENCODING = c.getColumnIndexOrThrow(FIELD_HOST_ENCODING),
-			COL_STAYCONNECTED = c.getColumnIndexOrThrow(FIELD_HOST_STAYCONNECTED);
+			COL_STAYCONNECTED = c.getColumnIndexOrThrow(FIELD_HOST_STAYCONNECTED),
+			COL_BAUDRATE = c.getColumnIndexOrThrow(FIELD_HOST_BAUDRATE),
+			COL_DATABITS = c.getColumnIndexOrThrow(FIELD_HOST_DATABITS),
+			COL_PARITY = c.getColumnIndexOrThrow(FIELD_HOST_PARITY),
+			COL_STOPBITS = c.getColumnIndexOrThrow(FIELD_HOST_STOPBITS),
+			COL_FLOWCONTROL = c.getColumnIndexOrThrow(FIELD_HOST_FLOW_CONTROL);
 
 
 		while (c.moveToNext()) {
@@ -400,6 +437,11 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 			host.setCompression(Boolean.valueOf(c.getString(COL_COMPRESSION)));
 			host.setEncoding(c.getString(COL_ENCODING));
 			host.setStayConnected(Boolean.valueOf(c.getString(COL_STAYCONNECTED)));
+            host.setBaudrate(c.getInt(COL_BAUDRATE));
+            host.setDatabits(c.getInt(COL_DATABITS));
+            host.setParity(c.getString(COL_PARITY));
+            host.setStopbits(c.getInt(COL_STOPBITS));
+            host.setFlowcontrol(c.getString(COL_FLOWCONTROL));
 
 			hosts.add(host);
 		}
@@ -424,12 +466,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	}
 
 	/**
-	 * @param nickname
-	 * @param protocol
-	 * @param username
-	 * @param hostname
-	 * @param hostname2
-	 * @param port
+	 * @param selection
 	 * @return
 	 */
 	public HostBean findHost(Map<String, String> selection) {

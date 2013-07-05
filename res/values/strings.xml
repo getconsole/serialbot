@@ -291,6 +291,37 @@
 	<!-- Port field title for host editor preference -->
 	<string name="hostpref_port_title">"Port"</string>
 
+    <string name="hostpref_serial_category">"Serial Port Settings"</string>
+    <string name="hostpref_baudrate">"Baud Rate"</string>
+    <string name="baudrate_1200">"1200 Baud"</string>
+    <string name="baudrate_2400">"2400 Baud"</string>
+    <string name="baudrate_4800">"4800 Baud"</string>
+    <string name="baudrate_9600">"9600 Baud"</string>
+    <string name="baudrate_19200">"19200 Baud"</string>
+    <string name="baudrate_38400">"38400 Baud"</string>
+    <string name="baudrate_57600">"57600 Baud"</string>
+    <string name="baudrate_115200">"115200 Baud"</string>
+
+    <string name="format_baudrate">"baudrate"</string>
+
+    <string name="hostpref_databits">"Data Bits"</string>
+    <string name="databits_7">"7"</string>
+    <string name="databits_8">"8"</string>
+
+    <string name="hostpref_parity">"Parity"</string>
+    <string name="parity_none">"None"</string>
+    <string name="parity_odd">"Odd"</string>
+    <string name="parity_even">"Even"</string>
+
+    <string name="hostpref_stopbits">"Stop Bits"</string>
+    <string name="stopbits_1">"1"</string>
+    <string name="stopbits_2">"2"</string>
+
+    <string name="hostpref_flowcontrol">"Flow Control"</string>
+    <string name="flowcontrol_none">"None"</string>
+    <string name="flowcontrol_software">"Software (XON/XOFF)"</string>
+    <string name="flowcontrol_hardware">"Hardware (RTS/CTS)"</string>
+
 
     <!-- Displayed to indicate a host has never been connected to. -->
 	<string name="bind_never">"Never connected"</string>
@@ -318,6 +349,8 @@
 	<string name="console_menu_resize">"Force Size"</string>
 	<!-- Button that brings up the list of URLs on the current screen -->
 	<string name="console_menu_urlscan">"URL Scan"</string>
+    <!-- Send a BREAK to the remote terminal (if supported by transport) -->
+    <string name="console_menu_break">"Send Break"</string>
 
 	<!-- Button label to answer "Yes" to a yes/no prompt -->
 	<string name="button_yes">"Yes"</string>

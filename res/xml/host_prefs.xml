@@ -122,4 +122,40 @@
 
 	</PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/hostpref_serial_category">
+
+        <ListPreference
+                android:key="baudrate"
+                android:title="@string/hostpref_baudrate"
+                android:entries="@array/list_baudrates"
+                android:entryValues="@array/list_baudrates_values"
+         />
+        <ListPreference
+                android:key="databits"
+                android:title="@string/hostpref_databits"
+                android:entries="@array/list_databits"
+                android:entryValues="@array/list_databits_values"
+            />
+        <ListPreference
+                android:key="parity"
+                android:title="@string/hostpref_parity"
+                android:entries="@array/list_parity"
+                android:entryValues="@array/list_parity_values"
+                />
+        <ListPreference
+                android:key="stopbits"
+                android:title="@string/hostpref_stopbits"
+                android:entries="@array/list_stopbits"
+                android:entryValues="@array/list_stopbits_values"
+                />
+        <ListPreference
+                android:key="flowcontrol"
+                android:title="@string/hostpref_flowcontrol"
+                android:entries="@array/list_flowcontrol"
+                android:entryValues="@array/list_flowcontrol_values"
+                />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -29,7 +29,8 @@ import android.net.Uri;
 public class HostBean extends AbstractBean {
 	public static final String BEAN_NAME = "host";
 
-	/* Database fields */
+
+    /* Database fields */
 	private long id = -1;
 	private String nickname = null;
 	private String username = null;
@@ -50,6 +51,11 @@ public class HostBean extends AbstractBean {
 	private boolean compression = false;
 	private String encoding = HostDatabase.ENCODING_DEFAULT;
 	private boolean stayConnected = false;
+    private int baudrate = HostDatabase.DEFAULT_BAUDRATE;
+    private int databits = HostDatabase.DEFAULT_DATABITS;
+    private String parity = HostDatabase.DEFAULT_PARITY;
+    private int stopbits = HostDatabase.DEFAULT_STOPBITS;
+    private String flowcontrol = HostDatabase.DEFAULT_FLOW_CONTROL;
 
 	public HostBean() {
 
@@ -202,7 +208,47 @@ public class HostBean extends AbstractBean {
 		return stayConnected;
 	}
 
-	public String getDescription() {
+    public int getBaudrate() {
+        return baudrate;
+    }
+
+    public void setBaudrate(int baudrate) {
+        this.baudrate = baudrate;
+    }
+
+    public int getDatabits() {
+        return databits;
+    }
+
+    public void setDatabits(int databits) {
+        this.databits = databits;
+    }
+
+    public String getParity() {
+        return parity;
+    }
+
+    public void setParity(String parity) {
+        this.parity = parity;
+    }
+
+    public int getStopbits() {
+        return stopbits;
+    }
+
+    public void setStopbits(int stopbits) {
+        this.stopbits = stopbits;
+    }
+
+    public String getFlowcontrol() {
+        return flowcontrol;
+    }
+
+    public void setFlowcontrol(String flowcontrol) {
+        this.flowcontrol = flowcontrol;
+    }
+
+    public String getDescription() {
 		String description = String.format("%s@%s", username, hostname);
 
 		if (port != 22)
@@ -234,6 +280,11 @@ public class HostBean extends AbstractBean {
 		values.put(HostDatabase.FIELD_HOST_COMPRESSION, Boolean.toString(compression));
 		values.put(HostDatabase.FIELD_HOST_ENCODING, encoding);
 		values.put(HostDatabase.FIELD_HOST_STAYCONNECTED, stayConnected);
+        values.put(HostDatabase.FIELD_HOST_BAUDRATE, baudrate);
+        values.put(HostDatabase.FIELD_HOST_DATABITS, databits);
+        values.put(HostDatabase.FIELD_HOST_PARITY, parity);
+        values.put(HostDatabase.FIELD_HOST_STOPBITS, stopbits);
+        values.put(HostDatabase.FIELD_HOST_FLOW_CONTROL, flowcontrol);
 
 		return values;
 	}
@@ -274,6 +325,27 @@ public class HostBean extends AbstractBean {
 
 		if (port != host.getPort())
 			return false;
+
+        if (baudrate != host.getBaudrate())
+            return false;
+
+        if (databits != host.getDatabits())
+            return false;
+
+        if (parity == null) {
+            if (host.getParity() != null)
+                return false;
+        } else if (!parity.equals(host.getParity()))
+                return false;
+
+        if (stopbits != host.getStopbits())
+            return false;
+
+        if (flowcontrol == null) {
+            if (host.getFlowcontrol() != null)
+                return false;
+        } else if (!flowcontrol.equals(host.getFlowcontrol()))
+            return false;
 
 		return true;
 	}

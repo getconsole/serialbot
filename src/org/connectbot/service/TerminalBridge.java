@@ -313,6 +313,11 @@ public class TerminalBridge implements VDUDisplay {
 		keyListener.setCharset(encoding);
 	}
 
+    public void setSerialParameters(int baudrate, int databits, String parity, int stopbits, String flowcontrol) {
+        if (transport != null) {
+            transport.setSerialParameters(baudrate, databits, parity, stopbits, flowcontrol);
+        }
+    }
 	/**
 	 * Convenience method for writing a line into the underlying MUD buffer.
 	 * Should never be called once the session is established.
@@ -834,6 +839,15 @@ public class TerminalBridge implements VDUDisplay {
 
 		return -1;
 	}
+
+
+    public boolean canSendBreak() {
+        return transport.canSendBreak();
+    }
+
+    public void sendBreak() {
+        transport.sendBreak();
+    }
 
 	/**
 	 * @return whether underlying transport can forward ports
