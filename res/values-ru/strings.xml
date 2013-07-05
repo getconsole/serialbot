@@ -14,7 +14,7 @@
   <string name="menu_delete">Удалить хост</string>
   <string name="menu_preferences">Настройки</string>
   <string name="help_intro">Для дополнительной информации выберите топик</string>
-  <string name="help_about">О ConnectBot</string>
+  <string name="help_about">О SerialBot</string>
   <string name="help_keyboard">Клавиатура</string>
   <string name="pubkey_generate">Генерировать</string>
   <string name="pubkey_import">Импорт</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Запомнить ключи в памяти</string>
   <string name="pref_memkeys_summary">Держать ключи в памяти пока процессы работают</string>
   <string name="pref_update_title">Проверка обновления</string>
-  <string name="pref_update_summary">Как часто проверять обновления для ConnectBot</string>
+  <string name="pref_update_summary">Как часто проверять обновления для SerialBot</string>
   <string name="pref_conn_persist_title">Постоянные соединения</string>
   <string name="pref_conn_persist_summary">Принудительно сохранять соединение в фоновом режиме.</string>
   <string name="pref_keymode_title">Ярлыки папок</string>
@@ -209,7 +209,7 @@
   <string name="yes">Да</string>
   <string name="exceptions_submit_message">Возможно, при последнем запуске программы возникла проблема. Отправить разработчикам отчет об ошибке?</string>
   <string name="menu_colors_reset">Сбросить</string>
-  <string name="app_is_running">ConnectBot запущен</string>
+  <string name="app_is_running">SerialBot запущен</string>
   <string name="color_red">красный</string>
   <string name="color_green">зелёный</string>
   <string name="color_blue">синий</string>

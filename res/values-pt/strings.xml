@@ -14,7 +14,7 @@
   <string name="menu_delete">Eliminar anfitrião</string>
   <string name="menu_preferences">Preferências</string>
   <string name="help_intro">Selecione um tópico para mais informações sobre o assunto.</string>
-  <string name="help_about">Sobre ConnectBot</string>
+  <string name="help_about">Sobre SerialBot</string>
   <string name="help_keyboard">Teclado</string>
   <string name="pubkey_generate">Gerar</string>
   <string name="pubkey_import">Importar</string>
@@ -79,7 +79,7 @@
   <string name="pref_memkeys_title">Lembrar chaves em memoria</string>
   <string name="pref_memkeys_summary">Manter chaves desbloqueadas em memória até ao serviço de fundo terminar</string>
   <string name="pref_update_title">Verificar actualizações</string>
-  <string name="pref_update_summary">Definir a frequência máxima para verificar actualizações do ConnectBot</string>
+  <string name="pref_update_summary">Definir a frequência máxima para verificar actualizações do SerialBot</string>
   <string name="pref_conn_persist_title">Persistir ligações</string>
   <string name="pref_conn_persist_summary">Forçar ligações a ficarem ligadas quando em segundo plano</string>
   <string name="pref_keymode_title">Atalhos de directoria</string>
@@ -202,9 +202,9 @@
   <string name="no">Não</string>
   <string name="with_confirmation">com confirmação</string>
   <string name="yes">Sim</string>
-  <string name="exceptions_submit_message">Aparentemente o ConnectBot teve um problema na ultima vez que foi executado. Enviar relatório de erros para os programadores do ConnectBot?</string>
+  <string name="exceptions_submit_message">Aparentemente o SerialBot teve um problema na ultima vez que foi executado. Enviar relatório de erros para os programadores do SerialBot?</string>
   <string name="menu_colors_reset">Limpar</string>
-  <string name="app_is_running">O ConnectBot esta a ser executado</string>
+  <string name="app_is_running">O SerialBot esta a ser executado</string>
   <string name="color_red">vermelho</string>
   <string name="color_green">verde</string>
   <string name="color_blue">azul</string>

@@ -14,7 +14,7 @@
   <string name="menu_delete">Apagar host</string>
   <string name="menu_preferences">Preferências</string>
   <string name="help_intro">Escolha um dos tópicos abaixo para maiores informações</string>
-  <string name="help_about">Sobre o ConnectBot</string>
+  <string name="help_about">Sobre o SerialBot</string>
   <string name="help_keyboard">Teclado</string>
   <string name="pubkey_generate">Gerar</string>
   <string name="pubkey_import">Importar</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Guardar as chaves em memória</string>
   <string name="pref_memkeys_summary">Manter chaves desbloqueadas na memória até que o serviço seja terminado</string>
   <string name="pref_update_title">Procurar por atualizações</string>
-  <string name="pref_update_summary">Configurar frequencia para checar atualizações do ConnectBot</string>
+  <string name="pref_update_summary">Configurar frequencia para checar atualizações do SerialBot</string>
   <string name="pref_conn_persist_title">Conexões persistentes</string>
   <string name="pref_conn_persist_summary">Forçar as conexões para que continuem conectadas mesmo em segundo plano</string>
   <string name="pref_keymode_title">Teclas de atalho</string>
@@ -207,9 +207,9 @@
   <string name="no">Não</string>
   <string name="with_confirmation">Com confirmação</string>
   <string name="yes">Sim</string>
-  <string name="exceptions_submit_message">Aparentemente o ConnectBot teve um problema na última execução. Deseja enviar relatório de erro aos desenvolvedores do aplicativo?</string>
+  <string name="exceptions_submit_message">Aparentemente o SerialBot teve um problema na última execução. Deseja enviar relatório de erro aos desenvolvedores do aplicativo?</string>
   <string name="menu_colors_reset">Reiniciar</string>
-  <string name="app_is_running">ConnectBot está executando</string>
+  <string name="app_is_running">SerialBot está executando</string>
   <string name="color_red">vermelho</string>
   <string name="color_green">verde</string>
   <string name="color_blue">azul</string>

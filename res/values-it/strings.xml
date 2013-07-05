@@ -14,7 +14,7 @@
   <string name="menu_delete">Elimina connessione</string>
   <string name="menu_preferences">Preferenze</string>
   <string name="help_intro">Seleziona un argomento dalla lista per ottenere maggiori informazioni.</string>
-  <string name="help_about">Informazioni su ConnectBot</string>
+  <string name="help_about">Informazioni su SerialBot</string>
   <string name="help_keyboard">Tastiera</string>
   <string name="pubkey_generate">Genera</string>
   <string name="pubkey_import">Importa</string>
@@ -207,9 +207,9 @@
   <string name="no">No</string>
   <string name="with_confirmation">Richiedi conferma</string>
   <string name="yes">Sì</string>
-  <string name="exceptions_submit_message">Sembrerebbe che ConnectBot abbia avuto un problema durante l\'ultima esecuzione. Inviare una segnalazione d\'errore agli sviluppatori di ConnectBot?</string>
+  <string name="exceptions_submit_message">Sembrerebbe che SerialBot abbia avuto un problema durante l\'ultima esecuzione. Inviare una segnalazione d\'errore agli sviluppatori di SerialBot?</string>
   <string name="menu_colors_reset">Reimposta</string>
-  <string name="app_is_running">ConnectBot è in esecuzione</string>
+  <string name="app_is_running">SerialBot è in esecuzione</string>
   <string name="color_red">rosso</string>
   <string name="color_green">verde</string>
   <string name="color_blue">blu</string>

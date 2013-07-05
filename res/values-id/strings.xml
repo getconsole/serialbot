@@ -11,7 +11,7 @@
   <string name="menu_delete">Hapus Host</string>
   <string name="menu_preferences">Kesukaan</string>
   <string name="help_intro">Mohon pilih sebuah topik dibawah untuk informasi lebih lanjut di subjek tertentu.</string>
-  <string name="help_about">Mengenai ConnectBot</string>
+  <string name="help_about">Mengenai SerialBot</string>
   <string name="help_keyboard">Papan Ketik</string>
   <string name="pubkey_generate">Buat</string>
   <string name="pubkey_import">Impor</string>
@@ -74,7 +74,7 @@
   <string name="pref_memkeys_title">Ingat kunci dalam memori</string>
   <string name="pref_memkeys_summary">Jaga kunci tidak terkunci dalam memori ketika backend service berakhir</string>
   <string name="pref_update_title">Perbarui pemeriksaan</string>
-  <string name="pref_update_summary">Set frekuensi maksimal untuk memeriksa untuk memperbarui ConnectBot</string>
+  <string name="pref_update_summary">Set frekuensi maksimal untuk memeriksa untuk memperbarui SerialBot</string>
   <string name="pref_keymode_title">Direktori jalan pintas</string>
   <string name="pref_keymode_summary">Pilih bagaimana menggunakan Alt untuk \'/\' dan Shift untuk Tab</string>
   <string name="pref_camera_title">Jalan pintas kamera</string>
@@ -162,7 +162,7 @@
   <string name="upgrade">Versi baru</string>
   <string name="upgrade_pos">Ya, perbarui</string>
   <string name="upgrade_neg">Jangan sekarang</string>
-  <string name="exceptions_submit_message">It appears ConnectBot had a problem last time it ran. Submit error report to ConnectBot developers?</string>
+  <string name="exceptions_submit_message">It appears SerialBot had a problem last time it ran. Submit error report to SerialBot developers?</string>
   <string name="color_red">merah</string>
   <string name="color_green">hijau</string>
   <string name="color_blue">biru</string>

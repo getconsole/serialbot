@@ -14,7 +14,7 @@
   <string name="menu_delete">Host löschen</string>
   <string name="menu_preferences">Einstellungen</string>
   <string name="help_intro">Für mehr Informationen wählen Sie eine Überschrift!</string>
-  <string name="help_about">Über ConnectBot</string>
+  <string name="help_about">Über SerialBot</string>
   <string name="help_keyboard">Tastatur</string>
   <string name="pubkey_generate">Erzeugen</string>
   <string name="pubkey_import">Importieren</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Schlüssel im Speicher behalten</string>
   <string name="pref_memkeys_summary">Entsperrte Schlüssel im Speicher halten, bis der Hintergrunddienst beendet wurde</string>
   <string name="pref_update_title">Aktualisierungen suchen</string>
-  <string name="pref_update_summary">Die maximale Frequenz einstellen, mit der nach ConnectBot Aktualisierungen gesucht werden soll</string>
+  <string name="pref_update_summary">Die maximale Frequenz einstellen, mit der nach SerialBot Aktualisierungen gesucht werden soll</string>
   <string name="pref_conn_persist_title">Persistente Verbindungen</string>
   <string name="pref_conn_persist_summary">Erhalte Verbindungen auch im Hintergrund</string>
   <string name="pref_keymode_title">Verzeichniskürzel</string>
@@ -207,9 +207,9 @@
   <string name="no">Nein</string>
   <string name="with_confirmation">Mit Bestätigung</string>
   <string name="yes">Ja</string>
-  <string name="exceptions_submit_message">Scheinbar hatte ConnectBot Probleme bei der letzten Benutzung. Fehlermeldung an die ConnectBot übermitteln?</string>
+  <string name="exceptions_submit_message">Scheinbar hatte SerialBot Probleme bei der letzten Benutzung. Fehlermeldung an die SerialBot übermitteln?</string>
   <string name="menu_colors_reset">Zurücksetzen</string>
-  <string name="app_is_running">ConnectBot läuft</string>
+  <string name="app_is_running">SerialBot läuft</string>
   <string name="color_red">rot</string>
   <string name="color_green">grün</string>
   <string name="color_blue">blau</string>

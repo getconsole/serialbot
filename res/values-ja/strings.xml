@@ -13,7 +13,7 @@
   <string name="menu_delete">ホストを削除</string>
   <string name="menu_preferences">設定</string>
   <string name="help_intro">特定の情報について知りたいときは、以下のトピックを選択してください。</string>
-  <string name="help_about">ConnectBotについて</string>
+  <string name="help_about">SerialBotについて</string>
   <string name="help_keyboard">キーボード</string>
   <string name="pubkey_generate">生成</string>
   <string name="pubkey_import">インポート</string>
@@ -77,7 +77,7 @@
   <string name="pref_memkeys_title">メモリに鍵を保持する</string>
   <string name="pref_memkeys_summary">バックエンドのサービスが終了しない限り、アンロックした鍵をメモリに保持します</string>
   <string name="pref_update_title">更新を確認</string>
-  <string name="pref_update_summary">ConnectBotの更新をチェックする頻度を設定します</string>
+  <string name="pref_update_summary">SerialBotの更新をチェックする頻度を設定します</string>
   <string name="pref_conn_persist_title">持続的接続</string>
   <string name="pref_conn_persist_summary">バックグラウンドでの実行中に接続の持続を強制する</string>
   <string name="pref_keymode_title">ディレクトリのショートカット</string>
@@ -198,9 +198,9 @@
   <string name="no">いいえ</string>
   <string name="with_confirmation">確認が必要</string>
   <string name="yes">はい</string>
-  <string name="exceptions_submit_message">前回ConnectBot実行時に問題が発生したようです。ConnectBotの開発者にエラーレポートを送信しますか?</string>
+  <string name="exceptions_submit_message">前回SerialBot実行時に問題が発生したようです。SerialBotの開発者にエラーレポートを送信しますか?</string>
   <string name="menu_colors_reset">リセット</string>
-  <string name="app_is_running">ConnectBot起動中</string>
+  <string name="app_is_running">SerialBot起動中</string>
   <string name="color_red">赤</string>
   <string name="color_green">緑</string>
   <string name="color_blue">青</string>

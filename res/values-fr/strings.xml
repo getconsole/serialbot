@@ -14,7 +14,7 @@
   <string name="menu_delete">Supprimer le serveur</string>
   <string name="menu_preferences">Préférences</string>
   <string name="help_intro">Sélectionnez un sujet ci-dessous pour plus d\'informations.</string>
-  <string name="help_about">À propos de ConnectBot</string>
+  <string name="help_about">À propos de SerialBot</string>
   <string name="help_keyboard">Clavier</string>
   <string name="pubkey_generate">Générer</string>
   <string name="pubkey_import">Importer</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Garder les clés en mémoire</string>
   <string name="pref_memkeys_summary">Garder les clés débloquées en mémoire tant que le service tourne en arrière plan</string>
   <string name="pref_update_title">Vérifier les mises à jour</string>
-  <string name="pref_update_summary">Régler la fréquence de vérification pour les mise à jour de ConnectBot</string>
+  <string name="pref_update_summary">Régler la fréquence de vérification pour les mise à jour de SerialBot</string>
   <string name="pref_conn_persist_title">Connexions persistantes</string>
   <string name="pref_conn_persist_summary">Forcer les connexions à rester connectées en arrière plan</string>
   <string name="pref_keymode_title">Raccourcis de navigation</string>
@@ -207,9 +207,9 @@
   <string name="no">Non</string>
   <string name="with_confirmation">Après confirmation</string>
   <string name="yes">Oui</string>
-  <string name="exceptions_submit_message">Il semblerait que ConnectBot ait eu un problème lors de sa dernière utilisation. Voulez vous envoyer un rapport d\'erreur aux développeurs de ConnectBot ?</string>
+  <string name="exceptions_submit_message">Il semblerait que SerialBot ait eu un problème lors de sa dernière utilisation. Voulez vous envoyer un rapport d\'erreur aux développeurs de SerialBot ?</string>
   <string name="menu_colors_reset">Réinitialiser</string>
-  <string name="app_is_running">ConnectBot est en cours</string>
+  <string name="app_is_running">SerialBot est en cours</string>
   <string name="color_red">rouge</string>
   <string name="color_green">vert</string>
   <string name="color_blue">bleu</string>

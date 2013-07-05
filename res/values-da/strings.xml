@@ -14,7 +14,7 @@
   <string name="menu_delete">Fjern vært</string>
   <string name="menu_preferences">Egenskaber</string>
   <string name="help_intro">Vælg et emne nedenfor for yderligere information.</string>
-  <string name="help_about">Om ConnectBot</string>
+  <string name="help_about">Om SerialBot</string>
   <string name="help_keyboard">Tastatur</string>
   <string name="pubkey_generate">Opret</string>
   <string name="pubkey_import">Importér</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Husk nøgler i hukommelsen</string>
   <string name="pref_memkeys_summary">Gem oplåste nøgler i hukommelsen indtil baggrunds servicen er afsluttet</string>
   <string name="pref_update_title">Opdaterings tjek</string>
-  <string name="pref_update_summary">Maksimal tid mellem check for opdateringer til ConnectBot</string>
+  <string name="pref_update_summary">Maksimal tid mellem check for opdateringer til SerialBot</string>
   <string name="pref_conn_persist_title">Vedvarende forbindelser</string>
   <string name="pref_conn_persist_summary">Tving forbindelser til at være aktive i baggrunden</string>
   <string name="pref_keymode_title">Biblioteksgenveje</string>
@@ -207,9 +207,9 @@
   <string name="no">Nej</string>
   <string name="with_confirmation">Med godkendelse</string>
   <string name="yes">Ja</string>
-  <string name="exceptions_submit_message">ConnectBot havde tilsyneladende problemer sidste gang det blev brugt. Send fejlrapport til ConnectBot udviklerne?</string>
+  <string name="exceptions_submit_message">SerialBot havde tilsyneladende problemer sidste gang det blev brugt. Send fejlrapport til SerialBot udviklerne?</string>
   <string name="menu_colors_reset">Nulstil</string>
-  <string name="app_is_running">ConnectBot kører</string>
+  <string name="app_is_running">SerialBot kører</string>
   <string name="color_red">rød</string>
   <string name="color_green">grøn</string>
   <string name="color_blue">blå</string>

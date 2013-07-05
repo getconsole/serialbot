@@ -12,7 +12,7 @@
   <string name="menu_delete">Одстрани хост</string>
   <string name="menu_preferences">Параметри</string>
   <string name="help_intro">Одбеи тема од подолу наведените за повеќе информации за таа тема.</string>
-  <string name="help_about">За ConnectBot</string>
+  <string name="help_about">За SerialBot</string>
   <string name="help_keyboard">Тастатура</string>
   <string name="pubkey_generate">Генерирај</string>
   <string name="pubkey_import">Увези</string>

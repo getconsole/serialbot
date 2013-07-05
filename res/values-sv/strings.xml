@@ -14,7 +14,7 @@
   <string name="menu_delete">Ta bort värd</string>
   <string name="menu_preferences">Inställningar</string>
   <string name="help_intro">Var god välj ett ämne nedan som du skulle vilja ha mer information om.</string>
-  <string name="help_about">Om ConnectBot</string>
+  <string name="help_about">Om SerialBot</string>
   <string name="help_keyboard">Tangentbord</string>
   <string name="pubkey_generate">Generera</string>
   <string name="pubkey_import">Importera</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Kom ihåg nycklar</string>
   <string name="pref_memkeys_summary">Behåll olåsta nycklar i minnet tills bakände-tjänst avslutas</string>
   <string name="pref_update_title">Uppdateringskontroll</string>
-  <string name="pref_update_summary">Intervall för att söka efter ConnectBot-uppdateringar</string>
+  <string name="pref_update_summary">Intervall för att söka efter SerialBot-uppdateringar</string>
   <string name="pref_conn_persist_title">Kvarstående anslutningar</string>
   <string name="pref_conn_persist_summary">Tvinga anslutningar att fortsätta i bakgrunden</string>
   <string name="pref_keymode_title">Genvägar för katalog</string>
@@ -201,9 +201,9 @@
   <string name="upgrade_pos">Ja, uppgradera</string>
   <string name="upgrade_neg">Inte just nu</string>
   <string name="with_confirmation">Med bekräftelse</string>
-  <string name="exceptions_submit_message">It appears ConnectBot had a problem last time it ran. Submit error report to ConnectBot developers?</string>
+  <string name="exceptions_submit_message">It appears SerialBot had a problem last time it ran. Submit error report to SerialBot developers?</string>
   <string name="menu_colors_reset">Återställ</string>
-  <string name="app_is_running">ConnectBot är igång</string>
+  <string name="app_is_running">SerialBot är igång</string>
   <string name="color_red">röd</string>
   <string name="color_green">grön</string>
   <string name="color_blue">blå</string>

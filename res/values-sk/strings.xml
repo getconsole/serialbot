@@ -14,7 +14,7 @@
   <string name="menu_delete">Zmazať hostiteľa</string>
   <string name="menu_preferences">Nastavenia</string>
   <string name="help_intro">Prosím, vyberte si tému pre viac informácií o danom subjekte.</string>
-  <string name="help_about">O programe ConnectBot</string>
+  <string name="help_about">O programe SerialBot</string>
   <string name="help_keyboard">Klávesnica</string>
   <string name="pubkey_generate">Vygenerovať</string>
   <string name="pubkey_import">Importovať</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Zapamätať kľúče v pamäti</string>
   <string name="pref_memkeys_summary">Ponechať odomknuté kľúče v pamäti pokiaľ nie je ukončená služba na pozadí.</string>
   <string name="pref_update_title">Kontrolovať aktualizácie</string>
-  <string name="pref_update_summary">Nastaviť maximálnu frekvenciu kontroly aktualizácií pre ConnectBot</string>
+  <string name="pref_update_summary">Nastaviť maximálnu frekvenciu kontroly aktualizácií pre SerialBot</string>
   <string name="pref_conn_persist_title">Perzistentné pripojenia</string>
   <string name="pref_conn_persist_summary">Vynútiť spojenie aj v pozadí</string>
   <string name="pref_keymode_title">Skratky adresárov</string>
@@ -207,9 +207,9 @@
   <string name="no">Nie</string>
   <string name="with_confirmation">S potvrdením</string>
   <string name="yes">Áno</string>
-  <string name="exceptions_submit_message">Ostatné spustenie ConnectBot asi skončilo chybou. Zaslať chýbovú správu vývojárom ConnectBot?</string>
+  <string name="exceptions_submit_message">Ostatné spustenie SerialBot asi skončilo chybou. Zaslať chýbovú správu vývojárom SerialBot?</string>
   <string name="menu_colors_reset">Pôvodné</string>
-  <string name="app_is_running">ConnectBot je spustený</string>
+  <string name="app_is_running">SerialBot je spustený</string>
   <string name="color_red">červená</string>
   <string name="color_green">zelená</string>
   <string name="color_blue">modrá</string>

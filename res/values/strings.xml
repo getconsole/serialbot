@@ -479,7 +479,7 @@
 	<!-- Preference selection for SSH Authentication Agent to be able to use pubkeys -->
 	<string name="yes">"Yes"</string>
 
-	<!-- String displayed to user when they're asked to submit exceptions to the ConnectBot developers -->
+	<!-- String displayed to user when they're asked to submit exceptions to the SerialBot developers -->
 	<string name="exceptions_submit_message">"It appears SerialBot had a problem last time it ran.  Submit error report to SerialBot developers?"</string>
 
 	<!-- Menu selection to reset colors to their defaults. -->

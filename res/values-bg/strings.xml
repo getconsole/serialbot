@@ -11,7 +11,7 @@
   <string name="menu_insert">Добавяне на хост</string>
   <string name="menu_delete">Изтрий хост</string>
   <string name="menu_preferences">Предпочитания</string>
-  <string name="help_about">Относно ConnectBot</string>
+  <string name="help_about">Относно SerialBot</string>
   <string name="help_keyboard">Клавиатура</string>
   <string name="pubkey_generate">Генериране</string>
   <string name="pubkey_import">Импортиране</string>
@@ -58,5 +58,5 @@
   <string name="console_menu_portforwards">Пренасочване на портове</string>
   <string name="list_format_error">Use the format %1$s</string>
   <string name="list_host_disconnect">Прекъсване на връзката</string>
-  <string name="exceptions_submit_message">It appears ConnectBot had a problem last time it ran. Submit error report to ConnectBot developers?</string>
+  <string name="exceptions_submit_message">It appears SerialBot had a problem last time it ran. Submit error report to SerialBot developers?</string>
 </resources>

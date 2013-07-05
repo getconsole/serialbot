@@ -14,7 +14,7 @@
   <string name="menu_delete">Usuń host</string>
   <string name="menu_preferences">Ustawienia</string>
   <string name="help_intro">Proszę wybrać temat poniżej aby uzyskać więcej informacji na konkretny temat.</string>
-  <string name="help_about">O ConnectBot</string>
+  <string name="help_about">O SerialBot</string>
   <string name="help_keyboard">Klawiatura</string>
   <string name="pubkey_generate">Wygeneruj</string>
   <string name="pubkey_import">Importuj</string>
@@ -207,9 +207,9 @@
   <string name="no">Nie</string>
   <string name="with_confirmation">Z potwierdzeniem</string>
   <string name="yes">Tak</string>
-  <string name="exceptions_submit_message">ConnectBot miał prawdopodobnie problem podczas ostatniego uruchomienia. Wysłać raport o błędzie?</string>
+  <string name="exceptions_submit_message">SerialBot miał prawdopodobnie problem podczas ostatniego uruchomienia. Wysłać raport o błędzie?</string>
   <string name="menu_colors_reset">Przywróć</string>
-  <string name="app_is_running">Uruchomiono ConnectBot</string>
+  <string name="app_is_running">Uruchomiono SerialBot</string>
   <string name="color_red">czerwony</string>
   <string name="color_green">zielony</string>
   <string name="color_blue">niebieski</string>

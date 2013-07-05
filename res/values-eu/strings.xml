@@ -14,7 +14,7 @@
   <string name="menu_delete">Ezabatu ostalaria</string>
   <string name="menu_preferences">Hobespenak</string>
   <string name="help_intro">Mesedez, hautatu beheko gaietako bat informazio gehiago nahi izanez gero.</string>
-  <string name="help_about">ConnectBot-i buruz</string>
+  <string name="help_about">SerialBot-i buruz</string>
   <string name="help_keyboard">Teklatua</string>
   <string name="pubkey_generate">Sortu</string>
   <string name="pubkey_import">Inportatu</string>
@@ -80,7 +80,7 @@
   <string name="pref_memkeys_title">Gorde gakoak memorian</string>
   <string name="pref_memkeys_summary">Gogoratu desblokeatutako gakoak memorian zerbitzua amaitu arte</string>
   <string name="pref_update_title">Eguneraketak begiratu</string>
-  <string name="pref_update_summary">ConnectBot-en eguneraketarik dagoen begiratzeko maiztasun maximoa finkatu</string>
+  <string name="pref_update_summary">SerialBot-en eguneraketarik dagoen begiratzeko maiztasun maximoa finkatu</string>
   <string name="pref_conn_persist_title">Konexio iraunkorrak</string>
   <string name="pref_conn_persist_summary">Behartu konexioak aktibo mantentzera atzeko planoko daudenean</string>
   <string name="pref_keymode_title">Direktorien laster-teklak</string>
@@ -207,9 +207,9 @@
   <string name="no">Ez</string>
   <string name="with_confirmation">Berrespenarekin</string>
   <string name="yes">Bai</string>
-  <string name="exceptions_submit_message">Dirudienez ConnectBot-ek arazo bat izan zuen azken exekuzioan. ConnectBot-en garatzaileei errore-txostena bidali?</string>
+  <string name="exceptions_submit_message">Dirudienez SerialBot-ek arazo bat izan zuen azken exekuzioan. SerialBot-en garatzaileei errore-txostena bidali?</string>
   <string name="menu_colors_reset">Berrezarri</string>
-  <string name="app_is_running">ConnectBot martxan dago</string>
+  <string name="app_is_running">SerialBot martxan dago</string>
   <string name="color_red">gorria</string>
   <string name="color_green">berdea</string>
   <string name="color_blue">urdina</string>
