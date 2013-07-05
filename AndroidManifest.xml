@@ -93,7 +93,7 @@
 		</activity>
 
 		<meta-data android:name="com.google.android.backup.api_key"
-			android:value="AEdPqrEAAAAIDlFz9nSUr2g0gSytW0t2cNnYAGHDkptlVohsBA" />
+			android:value="AEdPqrEAAAAId69eu2H8H7V7Hq26NHslafmrhYhrmvt916Infw" />
 
 	</application>
 </manifest>
