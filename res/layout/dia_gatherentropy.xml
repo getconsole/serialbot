@@ -33,7 +33,7 @@
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:gravity="center"/>
 
-	<com.amixcapital.serialbot.util.EntropyView
+	<nz.co.cloudstore.serialbot.util.EntropyView
 		android:id="@+id/entropy"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"

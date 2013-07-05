@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.amixcapital.serialbot"
+	package="nz.co.cloudstore.serialbot"
 	android:versionName="1.7.1"
 	android:versionCode="365"
 	android:installLocation="auto">
@@ -93,7 +93,7 @@
 		</activity>
 
 		<meta-data android:name="com.google.android.backup.api_key"
-			android:value="AEdPqrEAAAAId69eu2H8H7V7Hq26NHslafmrhYhrmvt916Infw" />
+			android:value="AEdPqrEAAAAIjotZ7om1dHpsB-JaYYfQY6VFkKPfrafWUqIh0w" />
 
 	</application>
 </manifest>
