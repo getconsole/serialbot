@@ -32,7 +32,6 @@ import nz.co.cloudstore.serialbot.bean.SelectionArea;
 import nz.co.cloudstore.serialbot.transport.AbsTransport;
 import nz.co.cloudstore.serialbot.transport.TransportFactory;
 import nz.co.cloudstore.serialbot.util.HostDatabase;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -90,6 +89,13 @@ public class TerminalBridge implements VDUDisplay {
 
 	private boolean disconnected = false;
 	private boolean awaitingClose = false;
+
+	/**
+	 * @param awaitingClose the awaitingClose to set
+	 */
+	public void setAwaitingClose(boolean awaitingClose) {
+		this.awaitingClose = awaitingClose;
+	}
 
 	private boolean forcedSize = false;
 	private int columns;

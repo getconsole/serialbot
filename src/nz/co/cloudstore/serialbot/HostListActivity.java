@@ -20,14 +20,11 @@ package nz.co.cloudstore.serialbot;
 import java.util.List;
 
 import nz.co.cloudstore.serialbot.bean.HostBean;
-
-import nz.co.cloudstore.serialbot.R;
 import nz.co.cloudstore.serialbot.service.TerminalBridge;
 import nz.co.cloudstore.serialbot.service.TerminalManager;
 import nz.co.cloudstore.serialbot.transport.TransportFactory;
 import nz.co.cloudstore.serialbot.util.HostDatabase;
 import nz.co.cloudstore.serialbot.util.PreferenceConstants;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -35,13 +32,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Intent.ShortcutIconResource;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.Intent.ShortcutIconResource;
 import android.content.SharedPreferences.Editor;
 import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -53,17 +51,20 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
+
+import nz.co.cloudstore.nfc.WiFiUtils;
 
 public class HostListActivity extends ListActivity {
 	public final static int REQUEST_EDIT = 1;
@@ -94,14 +95,24 @@ public class HostListActivity extends ListActivity {
 	protected Handler updateHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			HostListActivity.this.updateList();
+			switch (msg.what) {
+			case -1:
+				HostListActivity.this.updateList();
+				break;
+			case 2:
+				startConsoleActivity();
+				break;
+			}
+
 		}
 	};
+
+	private NfcAdapter mNfcAdapter;
+	private WiFiUtils mNfcUtils;
 
 	private ServiceConnection connection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			bound = ((TerminalManager.TerminalBinder) service).getService();
-
 			// update our listview binder to find the service
 			HostListActivity.this.updateList();
 		}
@@ -128,6 +139,7 @@ public class HostListActivity extends ListActivity {
 		super.onStop();
 		this.unbindService(connection);
 
+
 		if(this.hostdb != null) {
 			this.hostdb.close();
 			this.hostdb = null;
@@ -137,6 +149,33 @@ public class HostListActivity extends ListActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		if(mNfcUtils!=null){
+			mNfcUtils.setupForegroundDispatch(this,mNfcAdapter);
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		/*
+		 * Call this before onPause, otherwise an IllegalArgumentException is thrown as well.
+		 */
+		if(mNfcUtils!=null)
+			mNfcUtils.stopForegroundDispatch(this, mNfcAdapter);
+
+		super.onPause();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		try {
+			if(mNfcUtils!=null){
+				mNfcUtils.handleIntent(intent);
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -174,6 +213,24 @@ public class HostListActivity extends ListActivity {
 				getResources().getText(R.string.app_name),
 				getResources().getText(R.string.title_hosts_list)));
 
+		try {
+			mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+			if (mNfcAdapter == null) {
+				Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+			} else if (!mNfcAdapter.isEnabled()) {
+				Toast.makeText(this, "NFC is disabled on this.", Toast.LENGTH_LONG).show();
+			} else {
+
+				mNfcUtils = new WiFiUtils(this,updateHandler);
+
+				mNfcUtils.handleIntent(getIntent());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		// check for eula agreement
 		this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -181,6 +238,8 @@ public class HostListActivity extends ListActivity {
 		if(!agreed) {
 			this.startActivityForResult(new Intent(this, WizardActivity.class), REQUEST_EULA);
 		}
+
+
 
 		this.makingShortcut = Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())
 								|| Intent.ACTION_PICK.equals(getIntent().getAction());
@@ -396,33 +455,63 @@ public class HostListActivity extends ListActivity {
 		});
 	}
 
-	/**
-	 * @param text
-	 * @return
-	 */
 	private boolean startConsoleActivity() {
-		Uri uri = TransportFactory.getUri((String) transportSpinner
-				.getSelectedItem(), quickconnect.getText().toString());
+		try {
 
-		if (uri == null) {
-			quickconnect.setError(getString(R.string.list_format_error,
-					TransportFactory.getFormatHint(
-							(String) transportSpinner.getSelectedItem(),
-							HostListActivity.this)));
+			//check if currently connected to host then disconnect
+			if (bound != null) {
+
+				if(this.hosts != null) {
+
+				for (HostBean host1 : hosts) {
+					TerminalBridge bridge=bound.getConnectedBridge(host1);
+						if(bridge!=null){
+							Log.e("isDisconnected()", bridge.isDisconnected()+"");
+							bridge.dispatchDisconnect(true);
+								Message msg=new Message();
+								msg.obj=bridge;
+								bridge.setAwaitingClose(true);
+								bound.disconnectHandler.sendMessage(msg);
+						}
+
+					}
+				}
+			}
+
+			Uri uri;
+            if ((mNfcUtils != null) && (mNfcUtils.isNfc())) { // if application is launched by reading an NFC tag
+				uri = TransportFactory.getUri(mNfcUtils.getProtocolName(), mNfcUtils.getProtocol());
+			}else{
+				uri = TransportFactory.getUri((String) transportSpinner
+						.getSelectedItem(), quickconnect.getText().toString());
+			}
+
+
+			if (uri == null) {
+				quickconnect.setError(getString(R.string.list_format_error,
+						TransportFactory.getFormatHint(
+								(String) transportSpinner.getSelectedItem(),
+								HostListActivity.this)));
+				return false;
+			}
+
+			HostBean host = TransportFactory.findHost(hostdb, uri);
+			if (host == null) {
+				host = TransportFactory.getTransport(uri.getScheme()).createHost(uri);
+				host.setColor(HostDatabase.COLOR_GRAY);
+				host.setPubkeyId(HostDatabase.PUBKEYID_ANY);
+				hostdb.saveHost(host);
+			}
+
+
+			Intent intent = new Intent(HostListActivity.this, ConsoleActivity.class);
+			intent.setData(uri);
+			startActivity(intent);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
 		}
-
-		HostBean host = TransportFactory.findHost(hostdb, uri);
-		if (host == null) {
-			host = TransportFactory.getTransport(uri.getScheme()).createHost(uri);
-			host.setColor(HostDatabase.COLOR_GRAY);
-			host.setPubkeyId(HostDatabase.PUBKEYID_ANY);
-			hostdb.saveHost(host);
-		}
-
-		Intent intent = new Intent(HostListActivity.this, ConsoleActivity.class);
-		intent.setData(uri);
-		startActivity(intent);
 
 		return true;
 	}
