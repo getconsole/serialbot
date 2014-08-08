@@ -1,6 +1,6 @@
 /*
  * SerialBot: adds Airconsole support to ConnectBot app
- * Copyright 2013 Cloudstore Ltd
+ * Copyright 2014 Cloudstore Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,27 +27,52 @@ import nz.co.cloudstore.serialbot.service.TerminalBridge;
 import nz.co.cloudstore.serialbot.service.TerminalManager;
 import nz.co.cloudstore.serialbot.util.HostDatabase;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Airconsole extends AbsTransport {
+public abstract class Airconsole extends AbsTransport {
     private static final String TAG = "ConnectBot.Airconsole";
-    private static final String PROTOCOL = "serial";
 
-    public static final String DEFAULT_IP = "192.168.10.1";
-    public static final int DEFAULT_PORT = 3696;
+    private final static byte TELNET_IAC  = (byte)255;
+    private final static byte TELNET_SB  = (byte)250;
+    private final static byte TELNET_SE  = (byte)240;
+
+    private final static byte TELOPT_COM_PORT_OPTION = 44;
+
+    private final static byte TELOPT_COM_PORT_SET_BAUDRATE = 1;
+    private final static byte TELOPT_COM_PORT_SET_DATASIZE = 2;
+    private final static byte TELOPT_COM_PORT_SET_PARITY   = 3;
+    private final static byte TELOPT_COM_PORT_SET_STOPSIZE = 4;
+    private final static byte TELOPT_COM_PORT_SET_CONTROL  = 5;
+
+    private final static byte TELOPT_COM_PORT_DATASIZE7 = 7;
+    private final static byte TELOPT_COM_PORT_DATASIZE8 = 8;
+
+    private final static byte TELOPT_COM_PORT_PARITY_NONE = 1;
+    private final static byte TELOPT_COM_PORT_PARITY_ODD  = 2;
+    private final static byte TELOPT_COM_PORT_PARITY_EVEN = 3;
+
+    private final static byte TELOPT_COM_PORT_STOP_1 = 1;
+    private final static byte TELOPT_COM_PORT_STOP_2 = 2;
+
+    private final static byte TELOPT_COM_PORT_FLOW_NONE      = 1;
+    private final static byte TELOPT_COM_PORT_FLOW_SOFTWARE  = 2;
+    private final static byte TELOPT_COM_PORT_FLOW_HARDWARE  = 3;
+
+    private final static byte TELOPT_COM_PORT_BREAK_ON  = 5;
+    private final static byte TELOPT_COM_PORT_BREAK_OFF = 6;
+
     public static final String DEFAULT_HOSTNAME = "airconsole";
 
     private TelnetProtocolHandler handler;
-    private Socket socket;
+    private Closeable socket;
 
     private InputStream is;
     private OutputStream os;
@@ -55,24 +80,17 @@ public class Airconsole extends AbsTransport {
     private int height;
 
     private boolean connected = false;
+    private String protocol;
 
     static final Pattern inputPattern;
-    static final Pattern ipv4Pattern;
 
     static {
         inputPattern = Pattern.compile("^([0-9]+)(-(\\d)([N|O|E])(\\d)(SW|HW)?)?$", Pattern.CASE_INSENSITIVE);
-        ipv4Pattern = Pattern.compile("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$");
-
-        // Start discovery on background thread
-        Runnable r = new Runnable() {
-            public void run() {
-                AirconsoleDiscovery.getInstance().startDiscovery();
-            }
-        };
-        (new Thread(r)).start();
     }
 
-    public Airconsole() {
+    public Airconsole(String protocol) {
+        this.protocol = protocol;
+
         handler = new TelnetProtocolHandler() {
             /** get the current terminal type */
             @Override
@@ -115,34 +133,14 @@ public class Airconsole extends AbsTransport {
         };
     }
 
-    private final static byte TELNET_IAC  = (byte)255;
-    private final static byte TELNET_SB  = (byte)250;
-    private final static byte TELNET_SE  = (byte)240;
-
-    private final static byte TELOPT_COM_PORT_OPTION = 44;
-
-    private final static byte TELOPT_COM_PORT_SET_BAUDRATE = 1;
-    private final static byte TELOPT_COM_PORT_SET_DATASIZE = 2;
-    private final static byte TELOPT_COM_PORT_SET_PARITY   = 3;
-    private final static byte TELOPT_COM_PORT_SET_STOPSIZE = 4;
-    private final static byte TELOPT_COM_PORT_SET_CONTROL  = 5;
-
-    private final static byte TELOPT_COM_PORT_DATASIZE7 = 7;
-    private final static byte TELOPT_COM_PORT_DATASIZE8 = 8;
-
-    private final static byte TELOPT_COM_PORT_PARITY_NONE = 1;
-    private final static byte TELOPT_COM_PORT_PARITY_ODD  = 2;
-    private final static byte TELOPT_COM_PORT_PARITY_EVEN = 3;
-
-    private final static byte TELOPT_COM_PORT_STOP_1 = 1;
-    private final static byte TELOPT_COM_PORT_STOP_2 = 2;
-
-    private final static byte TELOPT_COM_PORT_FLOW_NONE      = 1;
-    private final static byte TELOPT_COM_PORT_FLOW_SOFTWARE  = 2;
-    private final static byte TELOPT_COM_PORT_FLOW_HARDWARE  = 3;
-
-    private final static byte TELOPT_COM_PORT_BREAK_ON  = 5;
-    private final static byte TELOPT_COM_PORT_BREAK_OFF = 6;
+    /**
+     * @param host
+     * @param bridge
+     * @param manager
+     */
+    public Airconsole(HostBean host, TerminalBridge bridge, TerminalManager manager) {
+        super(host, bridge, manager);
+    }
 
     private void sendByteSubOption(byte option, byte suboption, byte value) {
         byte[] b = new byte[8];
@@ -197,57 +195,22 @@ public class Airconsole extends AbsTransport {
         }
     }
 
-    /**
-     * @param host
-     * @param bridge
-     * @param manager
-     */
-    public Airconsole(HostBean host, TerminalBridge bridge, TerminalManager manager) {
-        super(host, bridge, manager);
-    }
-
-    public static String getProtocolName() {
-        return PROTOCOL;
-    }
+    protected abstract void connectImpl() throws IOException;
+    protected abstract Closeable getSocket();
+    protected abstract InputStream getInputStream() throws IOException;
+    protected abstract OutputStream getOutputStream() throws IOException;
 
     @Override
     public void connect() {
+
         try {
-            String hostname = host.getHostname();
-            if (hostname == null) {
-                hostname = "";
-            }
-
-            // We need to determine IP and port to connect to - logic is below
-            String ip;
-            int port;
-
-
-            // Is the hostname already an IP?
-            Matcher matcher = ipv4Pattern.matcher(hostname);
-            if (matcher.matches()) {
-                // The user has entered an IP address manually - we should honour it (and the port)
-                ip = hostname;
-                port = host.getPort();
-            } else {
-                // The hostname looks like it is actually a hostname
-                // Do an MDNS lookup (if enabled) - discovery will fallback to default device if mdns fails or name is not found
-                AirconsoleDiscovery.AirconsoleDevice device = AirconsoleDiscovery.getInstance().getDeviceNamed(hostname);
-                ip = device.ip;
-                port = device.port;
-            }
-
-            // Check the user hasn't entered an invalid port...
-            if ((port < 1) || (port > 65535)) {
-                port = DEFAULT_PORT;
-            }
-
-            socket = new Socket(ip, port);
-
-            is = socket.getInputStream();
-            os = socket.getOutputStream();
-
+            connectImpl();
+            socket = getSocket();
+            is = getInputStream();
+            os = getOutputStream();
             connected = true;
+
+            bridge.onConnected();
 
             // We really should have some form of telnet negotiation before sending these...!
             sendIntSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_BAUDRATE, host.getBaudrate());
@@ -256,7 +219,6 @@ public class Airconsole extends AbsTransport {
             sendByteSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_STOPSIZE, rfc2217StopBits(host.getStopbits()));
             sendByteSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_CONTROL, rfc2217FlowControl(host.getFlowcontrol()));
 
-            bridge.onConnected();
         } catch (UnknownHostException e) {
             Log.d(TAG, "IO Exception connecting to host", e);
         } catch (IOException e) {
@@ -279,11 +241,6 @@ public class Airconsole extends AbsTransport {
     @Override
     public void flush() throws IOException {
         os.flush();
-    }
-
-    @Override
-    public int getDefaultPort() {
-        return DEFAULT_PORT;
     }
 
     @Override
@@ -330,7 +287,7 @@ public class Airconsole extends AbsTransport {
             if (os != null) {
                 os.write(buffer, offset, count);
             }
-        } catch (SocketException e) {
+        } catch (IOException e) {
             bridge.dispatchDisconnect(false);
         }
     }
@@ -340,7 +297,7 @@ public class Airconsole extends AbsTransport {
         try {
             if (os != null)
                 os.write(buffer);
-        } catch (SocketException e) {
+        } catch (IOException e) {
             bridge.dispatchDisconnect(false);
         }
     }
@@ -350,7 +307,7 @@ public class Airconsole extends AbsTransport {
         try {
             if (os != null)
                 os.write(c);
-        } catch (SocketException e) {
+        } catch (IOException e) {
             bridge.dispatchDisconnect(false);
         }
     }
@@ -396,7 +353,7 @@ public class Airconsole extends AbsTransport {
         return "Airconsole";
     }
 
-    private static boolean isValidBaudRate(int baud) {
+    protected static boolean isValidBaudRate(int baud) {
         switch (baud) {
             case 1200:
             case 2400:
@@ -412,7 +369,7 @@ public class Airconsole extends AbsTransport {
         }
     }
 
-    private static byte rfc2217DataBits(int databits) {
+    protected static byte rfc2217DataBits(int databits) {
         switch (databits) {
             case 8:
             default:
@@ -422,7 +379,7 @@ public class Airconsole extends AbsTransport {
         }
     }
 
-    private static boolean isValidDataBits(int databits) {
+    protected static boolean isValidDataBits(int databits) {
         switch (databits) {
             case 7:
             case 8:
@@ -432,7 +389,7 @@ public class Airconsole extends AbsTransport {
         }
     }
 
-    private static byte rfc2217Parity(String parity) {
+    protected static byte rfc2217Parity(String parity) {
         if (parity != null) {
             if (parity.equals(HostDatabase.PARITY_ODD)) {
                 return TELOPT_COM_PORT_PARITY_ODD;
@@ -443,14 +400,14 @@ public class Airconsole extends AbsTransport {
         return TELOPT_COM_PORT_PARITY_NONE;
     }
 
-    private static boolean isValidParity(String parity) {
+    protected static boolean isValidParity(String parity) {
         return ((parity != null) &&
                 (parity.equals(HostDatabase.PARITY_NONE) ||
                  parity.equals(HostDatabase.PARITY_ODD) ||
                  parity.equals(HostDatabase.PARITY_EVEN)));
     }
 
-    private static byte rfc2217StopBits(int stopbits) {
+    protected static byte rfc2217StopBits(int stopbits) {
         switch (stopbits) {
             case 1:
             default:
@@ -460,7 +417,7 @@ public class Airconsole extends AbsTransport {
         }
     }
 
-    private static boolean isValidStopbits(int stopbits) {
+    protected static boolean isValidStopbits(int stopbits) {
         switch (stopbits) {
             case 1:
             case 2:
@@ -471,7 +428,7 @@ public class Airconsole extends AbsTransport {
         }
     }
 
-    private static byte rfc2217FlowControl(String flowcontrol) {
+    protected static byte rfc2217FlowControl(String flowcontrol) {
         if (flowcontrol != null) {
             if (flowcontrol.equals(HostDatabase.FLOWCONTROL_SOFTWARE)) {
                 return TELOPT_COM_PORT_FLOW_SOFTWARE;
@@ -482,7 +439,7 @@ public class Airconsole extends AbsTransport {
         return TELOPT_COM_PORT_FLOW_NONE;
     }
 
-    private static boolean isValidFlowControl(String flowcontrol) {
+    protected static boolean isValidFlowControl(String flowcontrol) {
         return ((flowcontrol != null) &&
                 (flowcontrol.equals(HostDatabase.FLOWCONTROL_NONE) ||
                  flowcontrol.equals(HostDatabase.FLOWCONTROL_SOFTWARE) ||
@@ -490,7 +447,7 @@ public class Airconsole extends AbsTransport {
     }
 
 
-    private static int parseInt(String s) {
+    protected static int parseInt(String s) {
         int result = 0;
         if (s != null) {
             try {
@@ -502,7 +459,92 @@ public class Airconsole extends AbsTransport {
         return result;
     }
 
-    public static Uri getUri(String input) {
+    protected SerialParameters parseURI(Uri uri) {
+        SerialParameters result = new SerialParameters();
+        result.baudrate = parseInt(uri.getQueryParameter("baudrate"));
+        if (!isValidBaudRate(result.baudrate)) {
+            result.baudrate = HostDatabase.DEFAULT_BAUDRATE;
+        }
+        result.databits = parseInt(uri.getQueryParameter("databits"));
+        if (!isValidDataBits(result.databits)) {
+            result.databits= HostDatabase.DEFAULT_DATABITS;
+        }
+
+        result.parity = uri.getQueryParameter("parity");
+        if (!isValidParity(result.parity)) {
+            result.parity= HostDatabase.DEFAULT_PARITY;
+        }
+        result.stopbits = parseInt(uri.getQueryParameter("stopbits"));
+        if (!isValidStopbits(result.stopbits)) {
+            result.stopbits= HostDatabase.DEFAULT_STOPBITS;
+        }
+        result.flowcontrol = uri.getQueryParameter("flowcontrol");
+        if (!isValidFlowControl(result.flowcontrol)) {
+            result.flowcontrol= HostDatabase.DEFAULT_FLOW_CONTROL;
+        }
+        return result;
+    }
+
+    protected static String getNicknameFromBaud(int baudrate) {
+        return baudrate + " Baud";
+    }
+
+    @Override
+    public HostBean createHost(Uri uri) {
+        SerialParameters p = parseURI(uri);
+
+        HostBean host = new HostBean();
+
+        host.setProtocol(protocol);
+        host.setHostname(uri.getHost());
+
+        int port = uri.getPort();
+        if ((port < 1) || (port > 65535)) {
+            port = getDefaultPort();
+        }
+        host.setPort(port);
+
+        String nickname = uri.getFragment();
+        if (nickname == null || nickname.length() == 0) {
+            nickname = getNicknameFromBaud(p.baudrate);
+        }
+        host.setNickname(nickname);
+
+        host.setBaudrate(p.baudrate);
+        host.setDatabits(p.databits);
+        host.setParity(p.parity);
+        host.setStopbits(p.stopbits);
+        host.setFlowcontrol(p.flowcontrol);
+
+        return host;
+    }
+
+    @Override
+    public void getSelectionArgs(Uri uri, Map<String, String> selection) {
+        // This is for SQL look-ups
+        selection.put(HostDatabase.FIELD_HOST_PROTOCOL, protocol);
+        selection.put(HostDatabase.FIELD_HOST_NICKNAME, uri.getFragment());
+    }
+
+    @Override
+    public boolean canSendBreak() {
+        return true;
+    }
+
+    public void sendBreak() {
+        sendByteSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_CONTROL, TELOPT_COM_PORT_BREAK_ON);
+        sendByteSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_CONTROL, TELOPT_COM_PORT_BREAK_OFF);
+    }
+
+    protected class SerialParameters {
+        public int baudrate = HostDatabase.DEFAULT_BAUDRATE;
+        public int databits = HostDatabase.DEFAULT_DATABITS;
+        public String parity = HostDatabase.DEFAULT_PARITY;
+        public int stopbits = HostDatabase.DEFAULT_STOPBITS;
+        public String flowcontrol = HostDatabase.DEFAULT_FLOW_CONTROL;
+    }
+
+    public static Uri getUri(String protocol, String input) {
         // User will input in format "baudrate-8N1SW"
         // piece following - is optional, if not supplied then baudrate is optional
 
@@ -547,7 +589,8 @@ public class Airconsole extends AbsTransport {
 
         String nickname = getNicknameFromBaud(baudrate);
 
-        sb.append(PROTOCOL)
+        // Error here...
+        sb.append(protocol)
                 .append("://") .append(DEFAULT_HOSTNAME) .append("/")
                 .append("?baudrate=").append(baudrate)
                 .append("&databits=").append(databits)
@@ -562,100 +605,8 @@ public class Airconsole extends AbsTransport {
         return uri;
     }
 
-    private SerialParameters parseURI(Uri uri) {
-        SerialParameters result = new SerialParameters();
-        result.baudrate = parseInt(uri.getQueryParameter("baudrate"));
-        if (!isValidBaudRate(result.baudrate)) {
-            result.baudrate = HostDatabase.DEFAULT_BAUDRATE;
-        }
-        result.databits = parseInt(uri.getQueryParameter("databits"));
-        if (!isValidDataBits(result.databits)) {
-            result.databits= HostDatabase.DEFAULT_DATABITS;
-        }
-
-        result.parity = uri.getQueryParameter("parity");
-        if (!isValidParity(result.parity)) {
-            result.parity= HostDatabase.DEFAULT_PARITY;
-        }
-        result.stopbits = parseInt(uri.getQueryParameter("stopbits"));
-        if (!isValidStopbits(result.stopbits)) {
-            result.stopbits= HostDatabase.DEFAULT_STOPBITS;
-        }
-        result.flowcontrol = uri.getQueryParameter("flowcontrol");
-        if (!isValidFlowControl(result.flowcontrol)) {
-            result.flowcontrol= HostDatabase.DEFAULT_FLOW_CONTROL;
-        }
-        return result;
-    }
-
-    private static String getNicknameFromBaud(int baudrate) {
-        return baudrate + " Baud";
-    }
-
-    @Override
-    public HostBean createHost(Uri uri) {
-        SerialParameters p = parseURI(uri);
-
-        HostBean host = new HostBean();
-
-        host.setProtocol(PROTOCOL);
-        host.setHostname(uri.getHost());
-
-        int port = uri.getPort();
-        if ((port < 1) || (port > 65535)) {
-            port = DEFAULT_PORT;
-        }
-        host.setPort(port);
-
-        String nickname = uri.getFragment();
-        if (nickname == null || nickname.length() == 0) {
-            nickname = getNicknameFromBaud(p.baudrate);
-        }
-        host.setNickname(nickname);
-
-        host.setBaudrate(p.baudrate);
-        host.setDatabits(p.databits);
-        host.setParity(p.parity);
-        host.setStopbits(p.stopbits);
-        host.setFlowcontrol(p.flowcontrol);
-
-        return host;
-    }
-
-    @Override
-    public void getSelectionArgs(Uri uri, Map<String, String> selection) {
-        // This is for SQL look-ups
-        selection.put(HostDatabase.FIELD_HOST_PROTOCOL, PROTOCOL);
-        selection.put(HostDatabase.FIELD_HOST_NICKNAME, uri.getFragment());
-    }
-
     public static String getFormatHint(Context context) {
         return String.format("%s-8N1", context.getString(R.string.format_baudrate));
     }
 
-    /* (non-Javadoc)
-     * @see nz.co.cloudstore.serialbot.transport.AbsTransport#usesNetwork()
-     */
-    @Override
-    public boolean usesNetwork() {
-        return true;
-    }
-
-    @Override
-    public boolean canSendBreak() {
-        return true;
-    }
-
-    public void sendBreak() {
-        sendByteSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_CONTROL, TELOPT_COM_PORT_BREAK_ON);
-        sendByteSubOption(TELOPT_COM_PORT_OPTION, TELOPT_COM_PORT_SET_CONTROL, TELOPT_COM_PORT_BREAK_OFF);
-    }
-
-    private class SerialParameters {
-        public int baudrate = HostDatabase.DEFAULT_BAUDRATE;
-        public int databits = HostDatabase.DEFAULT_DATABITS;
-        public String parity = HostDatabase.DEFAULT_PARITY;
-        public int stopbits = HostDatabase.DEFAULT_STOPBITS;
-        public String flowcontrol = HostDatabase.DEFAULT_FLOW_CONTROL;
-    }
 }

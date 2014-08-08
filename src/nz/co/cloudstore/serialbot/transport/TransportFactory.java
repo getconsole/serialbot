@@ -36,7 +36,8 @@ public class TransportFactory {
 	private static final String TAG = "ConnectBot.TransportFactory";
 
 	private static String[] transportNames = {
-        Airconsole.getProtocolName(),
+        AirconsoleIP.getProtocolName(),
+        AirconsoleBT.getProtocolName(),
 		SSH.getProtocolName(),
 		Telnet.getProtocolName(),
 		Local.getProtocolName(),
@@ -51,8 +52,10 @@ public class TransportFactory {
 			return new SSH();
 		} else if (Telnet.getProtocolName().equals(protocol)) {
 			return new Telnet();
-        } else if (Airconsole.getProtocolName().equals(protocol)) {
-            return new Airconsole();
+        } else if (AirconsoleIP.getProtocolName().equals(protocol) || AirconsoleIP.getAltProtocolName().equals(protocol)) {
+            return new AirconsoleIP();
+        } else if (AirconsoleBT.getProtocolName().equals(protocol)) {
+            return new AirconsoleBT();
 		} else if (Local.getProtocolName().equals(protocol)) {
 			return new Local();
 		} else {
@@ -68,8 +71,10 @@ public class TransportFactory {
 			return SSH.getUri(input);
 		else if (Telnet.getProtocolName().equals(scheme))
 			return Telnet.getUri(input);
-        else if (Airconsole.getProtocolName().equals(scheme))
-            return Airconsole.getUri(input);
+        else if (AirconsoleIP.getProtocolName().equals(scheme) || AirconsoleIP.getAltProtocolName().equals(scheme))
+            return AirconsoleIP.getUri(input);
+        else if (AirconsoleBT.getProtocolName().equals(scheme))
+            return AirconsoleBT.getUri(input);
 		else if (Local.getProtocolName().equals(scheme)) {
 			Log.d("TransportFactory", "Got to the local parsing area");
 			return Local.getUri(input);
@@ -107,8 +112,10 @@ public class TransportFactory {
 			return SSH.getFormatHint(context);
 		} else if (Telnet.getProtocolName().equals(protocol)) {
 			return Telnet.getFormatHint(context);
-        } else if (Airconsole.getProtocolName().equals(protocol)) {
-            return Airconsole.getFormatHint(context);
+        } else if (AirconsoleIP.getProtocolName().equals(protocol) || AirconsoleIP.getAltProtocolName().equals(protocol)) {
+            return AirconsoleIP.getFormatHint(context);
+        } else if (AirconsoleBT.getProtocolName().equals(protocol)) {
+            return AirconsoleBT.getFormatHint(context);
 		} else if (Local.getProtocolName().equals(protocol)) {
 			return Local.getFormatHint(context);
 		} else {
@@ -119,7 +126,6 @@ public class TransportFactory {
 	/**
 	 * @param hostdb Handle to HostDatabase
 	 * @param uri URI to target server
-	 * @param host HostBean in which to put the results
 	 * @return true when host was found
 	 */
 	public static HostBean findHost(HostDatabase hostdb, Uri uri) {

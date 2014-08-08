@@ -32,7 +32,7 @@ public class AirconsoleDiscovery implements ServiceListener {
 
     private static final String TAG = "ConnectBot.AirconsoleDiscovery";
 
-    private static AirconsoleDevice defaultDevice = new AirconsoleDevice(Airconsole.DEFAULT_HOSTNAME, Airconsole.DEFAULT_IP, Airconsole.DEFAULT_PORT, true);
+    private static AirconsoleDevice defaultDevice = new AirconsoleDevice(Airconsole.DEFAULT_HOSTNAME, AirconsoleIP.DEFAULT_IP, AirconsoleIP.DEFAULT_PORT, true);
     private static AirconsoleDiscovery instance = null;
     private static final String SERVICE = "_telnetcpcd._tcp.local.";
 
