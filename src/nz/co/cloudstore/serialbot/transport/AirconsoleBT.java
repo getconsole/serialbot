@@ -163,7 +163,7 @@ public class AirconsoleBT extends Airconsole {
             throw new IOException("This device does not support bluetooth");
         }
     }
-    protected Closeable getSocket() {
+    protected Object getSocket() {
         return btSocket;
     }
 

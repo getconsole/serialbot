@@ -16,7 +16,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nz.co.cloudstore.serialbot"
-    android:versionName="1.7.4"
+    android:versionName="1.7.5"
     android:versionCode="368"
     android:installLocation="auto">
 

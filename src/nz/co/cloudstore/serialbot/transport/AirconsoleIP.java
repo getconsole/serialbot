@@ -95,7 +95,7 @@ public class AirconsoleIP extends Airconsole {
         netSocket = new Socket(ip, port);
     }
 
-    protected Closeable getSocket() {
+    protected Object getSocket() {
         return netSocket;
     }
 

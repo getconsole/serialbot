@@ -17,6 +17,7 @@
 
 package nz.co.cloudstore.serialbot.transport;
 
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -31,6 +32,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -72,7 +74,7 @@ public abstract class Airconsole extends AbsTransport {
     public static final String DEFAULT_HOSTNAME = "airconsole";
 
     private TelnetProtocolHandler handler;
-    private Closeable socket;
+    private Object socket;
 
     private InputStream is;
     private OutputStream os;
@@ -196,7 +198,7 @@ public abstract class Airconsole extends AbsTransport {
     }
 
     protected abstract void connectImpl() throws IOException;
-    protected abstract Closeable getSocket();
+    protected abstract Object getSocket();
     protected abstract InputStream getInputStream() throws IOException;
     protected abstract OutputStream getOutputStream() throws IOException;
 
@@ -231,7 +233,14 @@ public abstract class Airconsole extends AbsTransport {
         connected = false;
         if (socket != null)
             try {
-                socket.close();
+                // Note that Closeable was added to java.net.Socket in AIP level 19 (4.4) - need to be backwards compatible with earlier releases
+                if (socket instanceof Closeable) {
+                    ((Closeable)socket).close();
+                } else if (socket instanceof Socket) {
+                    ((java.net.Socket)socket).close();
+                } else if (socket instanceof BluetoothSocket) {
+                    ((BluetoothSocket)socket).close();
+                }
                 socket = null;
             } catch (IOException e) {
                 Log.d(TAG, "Error closing telnet socket.", e);
