@@ -89,7 +89,7 @@ public abstract class Airconsole extends AbsTransport {
     static final Pattern inputPattern;
 
     static {
-        inputPattern = Pattern.compile("^([0-9]+)(-(\\d)([N|O|E])(\\d)(SW|HW)?)?$", Pattern.CASE_INSENSITIVE);
+        inputPattern = Pattern.compile("^([0-9]+)(-(\\d)([N|O|E|M|S])(\\d)(SW|HW)?)?$", Pattern.CASE_INSENSITIVE);
     }
 
     public Airconsole(String protocol) {
