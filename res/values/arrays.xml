@@ -175,12 +175,16 @@
         <item>@string/parity_none</item>
         <item>@string/parity_odd</item>
         <item>@string/parity_even</item>
+        <item>@string/parity_mark</item>
+        <item>@string/parity_space</item>
     </string-array>
 
     <string-array name="list_parity_values" translateable="false">
         <item>N</item>
         <item>O</item>
         <item>E</item>
+        <item>M</item>
+        <item>S</item>
     </string-array>
 
     <string-array name="list_stopbits" translatable="false">

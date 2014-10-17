@@ -385,7 +385,7 @@ public class HostEditorActivity extends PreferenceActivity implements OnSharedPr
                     sharedPreferences.getInt(HostDatabase.FIELD_HOST_DATABITS, HostDatabase.DEFAULT_DATABITS),
                     sharedPreferences.getString(HostDatabase.FIELD_HOST_PARITY, HostDatabase.DEFAULT_PARITY),
                     sharedPreferences.getInt(HostDatabase.FIELD_HOST_STOPBITS, HostDatabase.DEFAULT_STOPBITS),
-                    sharedPreferences.getString(HostDatabase.FIELD_HOST_PARITY, HostDatabase.DEFAULT_PARITY)
+                    sharedPreferences.getString(HostDatabase.FIELD_HOST_FLOW_CONTROL, HostDatabase.DEFAULT_FLOW_CONTROL)
             );
         }
 	}

@@ -60,6 +60,8 @@ public abstract class Airconsole extends AbsTransport {
     private final static byte TELOPT_COM_PORT_PARITY_NONE = 1;
     private final static byte TELOPT_COM_PORT_PARITY_ODD  = 2;
     private final static byte TELOPT_COM_PORT_PARITY_EVEN = 3;
+    private final static byte TELOPT_COM_PORT_PARITY_MARK = 4;
+    private final static byte TELOPT_COM_PORT_PARITY_SPACE = 5;
 
     private final static byte TELOPT_COM_PORT_STOP_1 = 1;
     private final static byte TELOPT_COM_PORT_STOP_2 = 2;
@@ -404,6 +406,10 @@ public abstract class Airconsole extends AbsTransport {
                 return TELOPT_COM_PORT_PARITY_ODD;
             } else if (parity.equals(HostDatabase.PARITY_EVEN)) {
                 return TELOPT_COM_PORT_PARITY_EVEN;
+            } else if (parity.equals(HostDatabase.PARITY_MARK)) {
+                return TELOPT_COM_PORT_PARITY_MARK;
+            } else if (parity.equals(HostDatabase.PARITY_SPACE)) {
+                return TELOPT_COM_PORT_PARITY_SPACE;
             }
         }
         return TELOPT_COM_PORT_PARITY_NONE;
@@ -413,7 +419,9 @@ public abstract class Airconsole extends AbsTransport {
         return ((parity != null) &&
                 (parity.equals(HostDatabase.PARITY_NONE) ||
                  parity.equals(HostDatabase.PARITY_ODD) ||
-                 parity.equals(HostDatabase.PARITY_EVEN)));
+                 parity.equals(HostDatabase.PARITY_EVEN) ||
+                 parity.equals(HostDatabase.PARITY_MARK) ||
+                 parity.equals(HostDatabase.PARITY_SPACE)));
     }
 
     protected static byte rfc2217StopBits(int stopbits) {

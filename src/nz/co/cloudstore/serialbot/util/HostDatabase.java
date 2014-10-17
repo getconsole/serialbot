@@ -79,6 +79,8 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
     public final static String PARITY_NONE = "N";
     public final static String PARITY_ODD = "O";
     public final static String PARITY_EVEN = "E";
+    public final static String PARITY_MARK = "M";
+    public final static String PARITY_SPACE = "S";
 
     public final static String FLOWCONTROL_NONE = "";
     public final static String FLOWCONTROL_SOFTWARE = "SW";

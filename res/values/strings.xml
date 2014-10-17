@@ -312,6 +312,8 @@
     <string name="parity_none">"None"</string>
     <string name="parity_odd">"Odd"</string>
     <string name="parity_even">"Even"</string>
+    <string name="parity_mark">"Mark"</string>
+    <string name="parity_space">"Space"</string>
 
     <string name="hostpref_stopbits">"Stop Bits"</string>
     <string name="stopbits_1">"1"</string>
