@@ -16,8 +16,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nz.co.cloudstore.serialbot"
-    android:versionName="1.7.5"
-    android:versionCode="369"
+    android:versionName="1.7.6"
+    android:versionCode="370"
     android:installLocation="auto">
 
     <uses-sdk
