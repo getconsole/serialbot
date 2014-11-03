@@ -274,7 +274,12 @@
 	<!-- Summary for field asking what key code is sent to the server when DEL key is pressed. -->
 	<string name="hostpref_delkey_summary">"The key code sent when DEL key is pressed"</string>
 
-	<!-- Host character encoding preference title -->
+    <!-- Setting for what key code is sent to the server when Enter key is pressed. -->
+    <string name="hostpref_enterkey_title">"Enter Key"</string>
+    <!-- Summary for field asking what key code is sent to the server when Enter key is pressed. -->
+    <string name="hostpref_enterkey_summary">"The key code sent when the Enter key is pressed"</string>
+
+    <!-- Host character encoding preference title -->
 	<string name="hostpref_encoding_title">"Encoding"</string>
 	<!-- Host character encoding preference summary -->
 	<string name="hostpref_encoding_summary">"Character encoding for the host"</string>
@@ -423,7 +428,14 @@
 	<!-- Name for the ASCII DEL character -->
 	<string name="list_delkey_del">"Delete"</string>
 
-	<string name="delete_message">"Are you sure you want to delete '%1$s'?"</string>
+    <!-- Name for the CR character -->
+    <string name="list_enterkey_cr">"Carriage Return"</string>
+    <!-- Name for the LF character -->
+    <string name="list_enterkey_lf">"Linefeed"</string>
+    <!-- Name for the CR+LF characters -->
+    <string name="list_enterkey_crlf">"CR + LF"</string>
+
+    <string name="delete_message">"Are you sure you want to delete '%1$s'?"</string>
 	<string name="delete_pos">"Yes, delete"</string>
 	<string name="delete_neg">"Cancel"</string>
 

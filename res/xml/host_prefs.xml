@@ -93,7 +93,15 @@
 		android:entryValues="@array/list_delkey_values"
 		/>
 
-	<ListPreference
+    <ListPreference
+        android:key="enterkey"
+        android:title="@string/hostpref_enterkey_title"
+        android:summary="@string/hostpref_enterkey_summary"
+        android:entries="@array/list_enterkey"
+        android:entryValues="@array/list_enterkey_values"
+        />
+
+    <ListPreference
 		android:key="encoding"
 		android:title="@string/hostpref_encoding_title"
 		android:summary="@string/hostpref_encoding_summary"

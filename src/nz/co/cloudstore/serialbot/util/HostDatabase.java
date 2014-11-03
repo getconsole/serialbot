@@ -47,7 +47,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	public final static String TAG = "ConnectBot.HostDatabase";
 
 	public final static String DB_NAME = "hosts";
-	public final static int DB_VERSION = 23;
+	public final static int DB_VERSION = 24;
 
 	public final static String TABLE_HOSTS = "hosts";
 	public final static String FIELD_HOST_NICKNAME = "nickname";
@@ -65,6 +65,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	public final static String FIELD_HOST_PUBKEYID = "pubkeyid";
 	public final static String FIELD_HOST_WANTSESSION = "wantsession";
 	public final static String FIELD_HOST_DELKEY = "delkey";
+	public final static String FIELD_HOST_ENTERKEY = "enterkey";
 	public final static String FIELD_HOST_FONTSIZE = "fontsize";
 	public final static String FIELD_HOST_COMPRESSION = "compression";
 	public final static String FIELD_HOST_ENCODING = "encoding";
@@ -126,7 +127,11 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 	public final static String DELKEY_DEL = "del";
 	public final static String DELKEY_BACKSPACE = "backspace";
 
-	public final static String AUTHAGENT_NO = "no";
+    public final static String ENTERKEY_CR = "cr";
+    public final static String ENTERKEY_LF = "lf";
+    public final static String ENTERKEY_CRLR = "crlf";
+
+    public final static String AUTHAGENT_NO = "no";
 	public final static String AUTHAGENT_CONFIRM = "confirm";
 	public final static String AUTHAGENT_YES = "yes";
 
@@ -188,6 +193,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 				+ FIELD_HOST_POSTLOGIN + " TEXT, "
 				+ FIELD_HOST_PUBKEYID + " INTEGER DEFAULT " + PUBKEYID_ANY + ", "
 				+ FIELD_HOST_DELKEY + " TEXT DEFAULT '" + DELKEY_DEL + "', "
+				+ FIELD_HOST_ENTERKEY + " TEXT DEFAULT '" + ENTERKEY_CR + "', "
 				+ FIELD_HOST_FONTSIZE + " INTEGER, "
 				+ FIELD_HOST_WANTSESSION + " TEXT DEFAULT '" + Boolean.toString(true) + "', "
 				+ FIELD_HOST_COMPRESSION + " TEXT DEFAULT '" + Boolean.toString(false) + "', "
@@ -294,6 +300,9 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_PARITY + " TEXT DEFAULT '" + HostDatabase.DEFAULT_PARITY + "'");
             db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_STOPBITS + " INTEGER DEFAULT " + HostDatabase.DEFAULT_STOPBITS);
             db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_FLOW_CONTROL + " TEXT DEFAULT '" + HostDatabase.DEFAULT_FLOW_CONTROL + "'");
+        case 23:
+            db.execSQL("ALTER TABLE " + TABLE_HOSTS +  " ADD COLUMN " + FIELD_HOST_ENTERKEY+ " TEXT DEFAULT '" + HostDatabase.ENTERKEY_CR + "'");
+
 		}
 	}
 
@@ -407,6 +416,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 			COL_PUBKEYID = c.getColumnIndexOrThrow(FIELD_HOST_PUBKEYID),
 			COL_WANTSESSION = c.getColumnIndexOrThrow(FIELD_HOST_WANTSESSION),
 			COL_DELKEY = c.getColumnIndexOrThrow(FIELD_HOST_DELKEY),
+			COL_ENTERKEY = c.getColumnIndexOrThrow(FIELD_HOST_ENTERKEY),
 			COL_FONTSIZE = c.getColumnIndexOrThrow(FIELD_HOST_FONTSIZE),
 			COL_COMPRESSION = c.getColumnIndexOrThrow(FIELD_HOST_COMPRESSION),
 			COL_ENCODING = c.getColumnIndexOrThrow(FIELD_HOST_ENCODING),
@@ -435,6 +445,7 @@ public class HostDatabase extends RobustSQLiteOpenHelper {
 			host.setPubkeyId(c.getLong(COL_PUBKEYID));
 			host.setWantSession(Boolean.valueOf(c.getString(COL_WANTSESSION)));
 			host.setDelKey(c.getString(COL_DELKEY));
+			host.setEnterKey(c.getString(COL_ENTERKEY));
 			host.setFontSize(c.getInt(COL_FONTSIZE));
 			host.setCompression(Boolean.valueOf(c.getString(COL_COMPRESSION)));
 			host.setEncoding(c.getString(COL_ENCODING));

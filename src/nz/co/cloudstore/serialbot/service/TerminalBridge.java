@@ -387,6 +387,13 @@ public class TerminalBridge implements VDUDisplay {
 		else
 			((vt320) buffer).setBackspace(vt320.DELETE_IS_DEL);
 
+        if (HostDatabase.ENTERKEY_LF.equals(host.getEnterKey())) {
+            ((vt320) buffer).setEnter(vt320.ENTER_IS_LF);
+        } else if (HostDatabase.ENTERKEY_CRLR.equals(host.getEnterKey())) {
+            ((vt320) buffer).setEnter(vt320.ENTER_IS_CRLF);
+        } else {
+            ((vt320) buffer).setEnter(vt320.ENTER_IS_CR);
+        }
 		// create thread to relay incoming connection data to buffer
 		relay = new Relay(this, transport, (vt320) buffer, host.getEncoding());
 		Thread relayThread = new Thread(relay);

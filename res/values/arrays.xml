@@ -139,6 +139,19 @@
 		<item>backspace</item>
 	</string-array>
 
+    <string-array name="list_enterkey" translatable="false">
+        <item>@string/list_enterkey_cr</item>
+        <item>@string/list_enterkey_lf</item>
+        <item>@string/list_enterkey_crlf</item>
+    </string-array>
+
+    <string-array name="list_enterkey_values" translatable="false">
+        <item>cr</item>
+        <item>lf</item>
+        <item>crlf</item>
+    </string-array>
+
+
     <string-array name="list_baudrates" translatable="false">
         <item>@string/baudrate_1200</item>
         <item>@string/baudrate_2400</item>

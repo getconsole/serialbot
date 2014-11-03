@@ -26,6 +26,7 @@
 package de.mud.terminal;
 
 import android.text.AndroidCharacter;
+import android.util.Log;
 
 import java.util.Properties;
 
@@ -238,6 +239,7 @@ public void setScreenSize(int c, int r, boolean broadcast) {
       BackSpace[2] = "\u001b[3~";
       BackSpace[3] = "\u001b[2~";
     }
+    Enter = "\r";
 
     /* some more VT100 keys */
     Find = "\u001b[1~";
@@ -328,6 +330,20 @@ public void setScreenSize(int c, int r, boolean broadcast) {
       break;
     }
   }
+
+    public void setEnter(int type) {
+        switch (type) {
+            case ENTER_IS_CR:
+                Enter = "\r";
+                break;
+            case ENTER_IS_LF:
+                Enter = "\n";
+                break;
+            case ENTER_IS_CRLF:
+                Enter = "\r\n";
+                break;
+        }
+    }
 
   /**
    * Create a default vt320 terminal with 80 columns and 24 lines.
@@ -695,6 +711,10 @@ public void setScreenSize(int c, int r, boolean broadcast) {
   public final static int DELETE_IS_DEL = 0;
   public final static int DELETE_IS_BACKSPACE = 1;
 
+  public static final int ENTER_IS_CR = 0;
+  public static final int ENTER_IS_LF = 1;
+  public static final int ENTER_IS_CRLF = 2;
+
   /* The graphics charsets
    * B - default ASCII
    * A - ISO Latin 1
@@ -760,7 +780,7 @@ public void setScreenSize(int c, int r, boolean broadcast) {
   private String Help, Do, Find, Select;
 
   private String KeyHome[], KeyEnd[], Insert[], Remove[], PrevScn[], NextScn[];
-  private String Escape[], BackSpace[], NUMDot[], NUMPlus[];
+  private String Escape[], BackSpace[], NUMDot[], NUMPlus[], Enter;
 
   private String osc,dcs;  /* to memorize OSC & DCS control sequence */
 
@@ -1035,7 +1055,7 @@ public void setScreenSize(int c, int r, boolean broadcast) {
 
     if (((keyCode == KEY_ENTER) || (keyChar == 10))
             && !control) {
-      write('\r');
+      write(Enter);
       if (localecho) putString("\r\n"); // bad hack
       return;
     }
