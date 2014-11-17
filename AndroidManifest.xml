@@ -121,7 +121,8 @@
             android:configChanges="keyboardHidden|orientation"
             android:theme="@style/NoTitle"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
