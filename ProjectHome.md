@@ -1,0 +1,1 @@
+A port of the popular ConnectBot application, with support for RS232 serial connectivity via the Airconsole wireless-to-serial adaptor
